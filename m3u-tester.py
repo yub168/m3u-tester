@@ -440,9 +440,10 @@ def main():
         else:
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
               print(f"{key}:获取地址数量 0 个",file=f)
-    saveTojson(items)
-    if creatLiveJSON():
-      creatLivesTXT()
+    if items:
+      saveTojson(items)
+      if creatLiveJSON():
+        creatLivesTXT()
 
 def reTest():
     pattern='group-title=\"(\\w+)\"'
