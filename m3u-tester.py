@@ -438,6 +438,8 @@ def main():
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
               print(f"{key}:获取地址数量 0 个",file=f)
     saveTojson(items)
+    creatLiveJSON()
+    creatLivesTXT()
 
 def reTest():
     pattern='group-title=\"(\\w+)\"'
@@ -453,8 +455,8 @@ def testdel():
         print(df[df['title'].str.contains(f'CCTV[-_]?{end}$')])
 if __name__ == '__main__':
     
-    #main()
+    main()
     #creatLiveJSON()
-    creatLivesTXT()
+    #creatLivesTXT()
     
     
