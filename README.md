@@ -15,3 +15,6 @@ python3 m3u-tester.py
 3. good.m3u，速度大于500KB/sec
 4. wonderful.m3u，速度大于700KB/sec
 5. excellent.m3u，速度大于1MB/sec
+
+# 地址源
+1. https://iptv.b2og.com/cymz6_lives.m3u 速度不错
