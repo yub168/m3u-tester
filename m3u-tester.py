@@ -362,40 +362,43 @@ def creatLiveJSON():
     with open('result.json', 'r', encoding='utf-8') as f:
         data=json.load(f)
         df=pd.DataFrame(data)
-        with open('lives.json', 'r+', encoding='utf-8') as f1:
-          lives=json.load(f1)
-          for groups,value in lives.items():
-              for channle,urls in value.items():
-                  name=channle.split(' ')[0]
-                  #print('select :',name)
-                  if name.startswith('CCTV'):
-                    end=name[5:]
-                    if '5+' in end:
-                        end='5\\+'
-                    #print('str end :',end)
-                    pattern=f'{name} | "CCTV_"+{end} | "CCTV"+{end}'
-                    re_df=df[df['title'].str.contains(f'CCTV[-_]?{end}$')]
-                    print(f'{channle} 的行数为{len(re_df)}')
-                  else:
-                      re_df=df[df['title'].str.contains(name)]
-                  #print('select result:',re_df)
-                  if not re_df.empty:
-                      # ascending默认升序 ignore_index 保持原始索引顺序
-                      #print('select result:',re_df)
-                      df_sorted = re_df.sort_values(by='speed', ascending=False,ignore_index=True)
-                      df_sorted=df_sorted.drop_duplicates(subset='url', keep='first')
-                      adds=df_sorted['url'].to_list()
-                      # print('urls count ：',len(urls))
-                      # print('new  count ：',len(adds))
-                      lives[groups][channle]=adds
-                      # print('CCTV1 count',len(lives[groups][channle]))
-                      #print(urls)
-                  else:
-                      print(f'{channle} 没有地址！！！')
-          # 从起位置写入
-          f1.seek(0)
-          json.dump(lives,f1,ensure_ascii=False)
-          # json.dump(lives, f1,ensure_ascii=False)
+        if df:
+          with open('lives.json', 'r+', encoding='utf-8') as f1:
+            lives=json.load(f1)
+            for groups,value in lives.items():
+                for channle,urls in value.items():
+                    name=channle.split(' ')[0]
+                    #print('select :',name)
+                    if name.startswith('CCTV'):
+                      end=name[5:]
+                      if '5+' in end:
+                          end='5\\+'
+                      #print('str end :',end)
+                      pattern=f'{name} | "CCTV_"+{end} | "CCTV"+{end}'
+                      re_df=df[df['title'].str.contains(f'CCTV[-_]?{end}$')]
+                      print(f'{channle} 的行数为{len(re_df)}')
+                    else:
+                        re_df=df[df['title'].str.contains(name)]
+                    #print('select result:',re_df)
+                    if not re_df.empty:
+                        # ascending默认升序 ignore_index 保持原始索引顺序
+                        #print('select result:',re_df)
+                        df_sorted = re_df.sort_values(by='speed', ascending=False,ignore_index=True)
+                        df_sorted=df_sorted.drop_duplicates(subset='url', keep='first')
+                        adds=df_sorted['url'].to_list()
+                        # print('urls count ：',len(urls))
+                        # print('new  count ：',len(adds))
+                        lives[groups][channle]=adds
+                        # print('CCTV1 count',len(lives[groups][channle]))
+                        #print(urls)
+                    else:
+                        print(f'{channle} 没有地址！！！')
+            # 从起位置写入
+            f1.seek(0)
+            json.dump(lives,f1,ensure_ascii=False)
+            return True
+        return False
+            # json.dump(lives, f1,ensure_ascii=False)
               
 #
 #   生成lives.json
@@ -438,8 +441,8 @@ def main():
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
               print(f"{key}:获取地址数量 0 个",file=f)
     saveTojson(items)
-    creatLiveJSON()
-    creatLivesTXT()
+    if creatLiveJSON():
+      creatLivesTXT()
 
 def reTest():
     pattern='group-title=\"(\\w+)\"'
