@@ -3,18 +3,16 @@
 # Author: chaichunyang@outlook.com
 
 import json
-import os
-import sys
 import time
 from urllib.request import urlopen
 import requests
-from func_timeout import func_set_timeout, FunctionTimedOut
+from func_timeout import func_set_timeout
 from ffmpy import FFprobe
 from subprocess import PIPE
 import re
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
-
+from datetime import datetime
 class Item:
     def __init__(self):
         self.extinf = ''
@@ -57,6 +55,34 @@ class Downloader:
         else:
             return -1
 
+class Setting:
+    def __init__(self):
+        with open('setting.json','r',encoding='utf-8') as f :
+            self.setting=json.load(f)
+    # def openFile(self):
+    #     with open('setting.json','r',encoding='utf-8') as f :
+    #         setting=json.load(f)
+    #         return setting
+    def getDownloadMinSpeed(self):
+        return self.setting.get('minDownloadSpeed')
+    
+    def getVideoMinHeight(self):
+        return self.setting.get('minVideoHeight')
+    
+    def getGroupsFilter(self):
+        return self.setting.get('groupsFilter')
+    
+    def getSourceUrls(self):
+        return self.setting.get('sourceUrls')
+    
+    def getSourceBlack(self):
+        return self.setting.get('sourceBlack')
+    
+    def addSourceBlack(self,url):
+        self.setting.get('sourceBlack').append(url)
+        with open('setting.json','w',encoding='utf-8') as f :
+            json.dump(self.setting,f,ensure_ascii=False)
+    
 def downLoadM3U(url):
     response = requests.get(url)
  
@@ -76,26 +102,8 @@ def downLoadM3U(url):
         print('Failed to retrieve M3U file')
         
 def getAllM3UItems(dir):
-    # print('获取 %s 目录下的".m3u"文件...' % dir)
-    # files = []
-    # filenames = os.listdir(dir)
-    # pathnames = [os.path.join(dir, filename) for filename in filenames]
-    # for file in pathnames:
-    #     if file.endswith('.m3u') and os.path.isfile(file):
-    #         files.append(file)
-    # # 解析m3u文件
+    
     items = []
-    # for file in files:
-    #     with open(file, 'r+', encoding='utf-8') as f:
-    #         extinf = ''
-    #         for line in f:
-    #             if line.startswith('#EXTM3U'):
-    #                 continue
-    #             if extinf:
-    #                 items.append(Item(extinf.strip(), line.strip()))
-    #                 extinf = ''
-    #             if line.startswith('#EXTINF'):
-    #                 extinf = line
     if dir.startswith('http'):
         resp=requests.get(dir)
         if resp.status_code==200:
@@ -119,11 +127,12 @@ def isIn(list,str):
 def readText(resp):
     items=[]
     groups = ''
-    groupsFilter=['央视','卫视','广东','湖南']
+    groupsFilter=Setting().getGroupsFilter()
     for line in resp.text.splitlines():
         if '#genre#' in line :
             groups=line.split(',')[0]
         elif  line and isIn(groupsFilter,groups):
+            #print('符合分组：',groups)
             item=Item()
             info=line.split(',')
             if len(info)>1:
@@ -142,15 +151,13 @@ def readM3u(resp):
     items=[]
     extinf = ''
     groups=''
-    groupsFilter=['央视','卫视','广东','湖南']
+    groupsFilter=Setting().getGroupsFilter()
     title=''
-    lives={}
-    #print('start:'+resp.text.splitlines())
     for line in resp.text.splitlines():
         if line.startswith('#EXTM3U'):
             continue
         if extinf :
-            print('当前分组：',groups)
+            #print('当前分组：',groups)
             if isIn(groupsFilter,groups):
               item=Item()
               item.extinf=extinf
@@ -263,7 +270,7 @@ def get_video_info(url,item:Item):
         return True
     except Exception as e:
         # traceback.print_exc()
-        print('get videoInfo error:'+e)
+        print('get videoInfo error:',e)
         return False
 
 def downloadTester(downloader: Downloader):
@@ -282,7 +289,7 @@ def downloadTester(downloader: Downloader):
         downloader.recive = -1
     downloader.endTime = time.time()
 
-
+# 开始检测 
 def start(path='https://iptv.b2og.com/j_iptv.m3u'):
     
     filterItem=[]
@@ -294,14 +301,11 @@ def start(path='https://iptv.b2og.com/j_iptv.m3u'):
       with ThreadPoolExecutor(max_workers=5) as executor:
         filterItem=list(executor.map(test,items))
         filterItem=[result for result in filterItem if result is not None]
-    return filterItem
+    return filterItem,len(items)
 
 def test(item):
-    filterParams={
-        'minSpeed':1024*700,
-        'videoHeight':720
-        }
-    print('测试：%s' % item.title)
+   
+    print(f'测试：{item.groups}__{item.title}')
     url = item.url
     #print('地址：%s' % url)
     stream_urls = []
@@ -320,9 +324,9 @@ def test(item):
         speed = downloader.getSpeed()
     item.speed = speed
     print('\t速度：%d bytes/s' % item.speed)
-    if item.speed > filterParams['minSpeed']:
+    if item.speed > Setting().getDownloadMinSpeed():
       get_video_info(url,item)
-      if item.height>=filterParams['videoHeight']:
+      if item.height>=Setting().getVideoMinHeight():
           #print('befroe : ',item.__json__())
           #filterItem.append(item)
           #print('filter :',filterItem[0].__json__())
@@ -362,7 +366,7 @@ def creatLiveJSON():
     with open('result.json', 'r', encoding='utf-8') as f:
         data=json.load(f)
         df=pd.DataFrame(data)
-        if df:
+        if not df.empty:
           with open('lives.json', 'r+', encoding='utf-8') as f1:
             lives=json.load(f1)
             for groups,value in lives.items():
@@ -385,7 +389,7 @@ def creatLiveJSON():
                         #print('select result:',re_df)
                         df_sorted = re_df.sort_values(by='speed', ascending=False,ignore_index=True)
                         df_sorted=df_sorted.drop_duplicates(subset='url', keep='first')
-                        adds=df_sorted['url'].to_list()
+                        adds=df_sorted['url'].to_list() 
                         # print('urls count ：',len(urls))
                         # print('new  count ：',len(adds))
                         lives[groups][channle]=adds
@@ -421,25 +425,41 @@ def creatLivesTXT():
                               break
                   print('',file=f2)
                    
-
+def getLiveSource():
+    list=Setting().getSourceUrls()
+    url="https://gitee.com/yub168/myTvbox/raw/master/liveSource.json"
+    resp=requests.get(url)
+    if resp.status_code==200:
+        try:
+            sourceList=resp.json()
+            #print('sourceList:',sourceList)
+            list.update(sourceList)
+        except Exception as e:
+            print('liveSource json 转换失败！',e)
+    return list
 def main():
-    list={
-        'fmml_ipv6':'https://iptv.b2og.com/fmml_ipv6.m3u',
-        'cymz6_lives':'https://iptv.b2og.com/cymz6_lives.m3u',
-        'y_g':'https://iptv.b2og.com/y_g.m3u',
-        'j_home':'https://iptv.b2og.com/j_home.m3u'
-        }
+    list=getLiveSource()
+    sourceBalck=Setting().getSourceBlack()
+    finish=[]
     items=[]
+    with open('testInfo.txt', 'a', encoding='utf-8') as f:
+            print(f"============={datetime.now()}开始获取地址=============",file=f)
     for key,value in list.items():
+        if value in sourceBalck or value in finish:
+            print('地址已入黑名单 或已测试完成：',value)
+            continue
         print('开始测速：',value)
-        item=start(value)
+        finish.append(value)
+        item,count=start(value)
         if item:
           items.extend(item)
           with open('testInfo.txt', 'a', encoding='utf-8') as f:
-            print(f"{key}:获取地址数量 {len(item)}",file=f)
+            print(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",file=f)
+            print(f'\t地址：{value}')
         else:
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
-              print(f"{key}:获取地址数量 0 个",file=f)
+              print(f"{key}: 共{count}个地址，获取可用数量 0 个",file=f)
+              print(f'\t地址：{value}')
     if items:
       saveTojson(items)
       if creatLiveJSON():
@@ -459,8 +479,8 @@ def testdel():
         print(df[df['title'].str.contains(f'CCTV[-_]?{end}$')])
 if __name__ == '__main__':
     
-    main()
+    #main()
     #creatLiveJSON()
-    #creatLivesTXT()
-    
+    creatLivesTXT()
+    #Setting().addSourceBlack('https://fs-im-kefu.7moor-fs1.com/ly/4d2c3f00-7d4c-11e5-af15-41bf63ae4ea0/1718114949789/tv.txt')
     
