@@ -1,0 +1,4 @@
+ffmpy==0.4.0
+func_timeout==4.3.5
+pandas==2.2.2
+Requests==2.32.3
