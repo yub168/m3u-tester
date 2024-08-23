@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Author: chaichunyang@outlook.com
-
+import os
 import json
 import time
 from urllib.request import urlopen
@@ -13,6 +13,8 @@ import re
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
+import subprocess
+
 class Item:
     def __init__(self):
         self.extinf = ''
@@ -22,17 +24,13 @@ class Item:
         self.speed = -1
         self.width = 0
         self.height = 0
-        self.flagAudio = 0
-        self.flagVideo = 0
-        self.flagHDR = 0
-        self.flagHEVC = 0
+        
 
     def __json__(self):
         return {'extinf': self.extinf, 'url': self.url, 
                 'groups':self.groups,'title':self.title,
                 'speed': self.speed,'width':self.width,
-                'height':self.height,'flagAudio':self.flagAudio,
-                'flagVideo':self.flagVideo,'flagHDR':self.flagHDR,'flagHEVC':self.flagHEVC}
+                'height':self.height}
 
 
 class ItemJSONEncoder(json.JSONEncoder):
@@ -48,10 +46,12 @@ class Downloader:
         self.startTime = time.time()
         self.recive = 0
         self.endTime = None
+        self.videoInfo=None
+        self.testTime=0
 
     def getSpeed(self):
         if self.endTime and self.recive != -1:
-            return self.recive / (self.endTime - self.startTime)
+            return self.recive / (self.endTime - self.startTime)//1000
         else:
             return -1
 
@@ -232,62 +232,63 @@ def getStreamUrl(m3u8):
     return urls
 
 @func_set_timeout(18)
-def get_video_info(url,item:Item):
+def get_video_info(url):
+    videoInfo={}
+    startTime=time.time()
+    #print(f"==============start ffprobe time : {time.time()}============")
     try:
-        ffprobe = FFprobe(
-            inputs={url: '-v error -show_format -show_streams -print_format json'})
-        cdata = json.loads(ffprobe.run(
-            stdout=PIPE, stderr=PIPE)[0].decode('utf-8'))
-        #print(cdata)
-        if cdata:
-                flagAudio = 0
-                flagVideo = 0
-                flagHDR = 0
-                flagHEVC = 0
-                vwidth = 0
-                vheight = 0
-                for i in cdata['streams']:
-                    if i['codec_type'] == 'video':
-                        flagVideo = 1
-                        if 'color_space' in i:
-                            # https://www.reddit.com/r/ffmpeg/comments/kjwxm9/how_to_detect_if_video_is_hdr_or_sdr_batch_script/
-                            if 'bt2020' in i['color_space']:
-                                flagHDR = 1
-                        if i['codec_name'] == 'hevc':
-                            flagHEVC = 1
-                        if vwidth <= i['coded_width']:  # 取最高分辨率
-                            vwidth = i['coded_width']
-                            vheight = i['coded_height']
-                    elif i['codec_type'] == 'audio':
-                        flagAudio = 1
-                item.height=vheight
-                item.width=vwidth
-                item.flagAudio=flagAudio
-                item.flagVideo=flagVideo
-                item.flagHDR=flagHDR
-                item.flagHEVC=flagHEVC
-
-        return True
+      command = ['ffprobe', '-v', 'quiet', '-print_format', 'json', '-show_format', '-show_streams',url]
+      process = subprocess.run(command,timeout=18,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+      # 测试用字节流
+      #command = ['ffprobe', '-v', 'quiet', '-print_format', 'json', '-show_format', '-show_streams']
+      #process = subprocess.run(command,timeout=18,stdout=subprocess.PIPE,stderr=subprocess.PIPE,input=url)
+      if process.returncode==0:
+          cdata=json.loads(process.stdout.decode('utf-8'))
+          if cdata:
+              vwidth = 0
+              vheight = 0
+              for i in cdata['streams']:
+                  if i['codec_type'] == 'video':
+                      if vwidth <= i['coded_width']:  # 取最高分辨率
+                          vwidth = i['coded_width']
+                          vheight = i['coded_height']
+              videoInfo["height"]=vheight
+              videoInfo["width"]=vwidth
+      else:
+          print("Error: ffprobe failed to execute. Return code: {}".format(process.stderr))  
+      #print(f"==============stop ffprobe time : {time.time()}=============")  
+      return videoInfo,time.time()-startTime
     except Exception as e:
         # traceback.print_exc()
-        print('get videoInfo error:',e)
+        print('ffprobe get videoInfo error:',e)
         return False
 
 def downloadTester(downloader: Downloader):
-    chunck_size = 10240
+    #chunck_size = 10240
+    #filename=str(time.time())+'.mp4'
+        
     try:
-        resp = urlopen(downloader.url, timeout=2)
-        # max 5s
-        while(time.time() - downloader.startTime < 5):
-            chunk = resp.read(chunck_size)
-            if not chunk:
+        resp=requests.get(downloader.url,stream=True,timeout=2)
+        content=bytes()
+        for chunk in resp.iter_content(chunk_size=10240):
+            if not chunk or time.time()-downloader.startTime>5:
                 break
+            content=content+chunk
             downloader.recive = downloader.recive + len(chunk)
+        downloader.endTime = time.time()
+        downloader.testTime=downloader.endTime-downloader
+        if downloader.getSpeed()>Setting().getDownloadMinSpeed():
+          # with open(filename,'wb') as f:
+          #     f.write(content)
+          videoInfo,testTime=get_video_info(downloader.url)
+          downloader.testTime=downloader.testTime+testTime
+          if videoInfo:
+              downloader.videoInfo=videoInfo
         resp.close()
     except BaseException as e:
         print("downloadTester got an error %s" % e)
         downloader.recive = -1
-    downloader.endTime = time.time()
+    #os.remove(filename)
 
 # 开始检测 
 def start(path='https://iptv.b2og.com/j_iptv.m3u'):
@@ -322,15 +323,14 @@ def test(item):
         downloader = Downloader(stream)
         downloadTester(downloader)
         speed = downloader.getSpeed()
+        videoInfo=downloader.videoInfo
+        if videoInfo:
+            item.height=videoInfo['height']
+            item.width=videoInfo['width']
     item.speed = speed
-    print('\t速度：%d bytes/s' % item.speed)
-    if item.speed > Setting().getDownloadMinSpeed():
-      get_video_info(url,item)
-      if item.height>=Setting().getVideoMinHeight():
-          #print('befroe : ',item.__json__())
-          #filterItem.append(item)
-          #print('filter :',filterItem[0].__json__())
-          return item
+    print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
+    if item.speed > Setting().getDownloadMinSpeed() and item.height>=Setting().getVideoMinHeight():
+        return item
       #print(item.__json__())
     return None
 
@@ -366,8 +366,10 @@ def creatLiveJSON():
     with open('result.json', 'r', encoding='utf-8') as f:
         data=json.load(f)
         df=pd.DataFrame(data)
-        if not df.empty:
-          with open('lives.json', 'r+', encoding='utf-8') as f1:
+        if df.empty:
+          return False
+        lives={}
+        with open('lives.json', 'r', encoding='utf-8') as f1:
             lives=json.load(f1)
             for groups,value in lives.items():
                 for channle,urls in value.items():
@@ -378,7 +380,6 @@ def creatLiveJSON():
                       if '5+' in end:
                           end='5\\+'
                       #print('str end :',end)
-                      pattern=f'{name} | "CCTV_"+{end} | "CCTV"+{end}'
                       re_df=df[df['title'].str.contains(f'CCTV[-_]?{end}$')]
                       print(f'{channle} 的行数为{len(re_df)}')
                     else:
@@ -398,11 +399,13 @@ def creatLiveJSON():
                     else:
                         print(f'{channle} 没有地址！！！')
             # 从起位置写入
-            f1.seek(0)
-            json.dump(lives,f1,ensure_ascii=False)
-            return True
-        return False
-            # json.dump(lives, f1,ensure_ascii=False)
+        if lives:
+            with open('lives.json', 'w', encoding='utf-8') as f1:
+              f1.seek(0)
+              json.dump(lives,f1,ensure_ascii=False)
+              return True
+        
+            
               
 #
 #   生成lives.json
@@ -440,30 +443,34 @@ def getLiveSource():
 def main():
     list=getLiveSource()
     sourceBalck=Setting().getSourceBlack()
-    finish=[]
     items=[]
+    startTime=time.time()
     with open('testInfo.txt', 'a', encoding='utf-8') as f:
-            print(f"============={datetime.now()}开始获取地址=============",file=f)
+            print(f"=========={datetime.now()}开始，共{len(list)}个地址需要测试=============",file=f)
     for key,value in list.items():
-        if value in sourceBalck or value in finish:
-            print('地址已入黑名单 或已测试完成：',value)
+        if value in sourceBalck :
+            with open('testInfo.txt', 'a', encoding='utf-8') as f:
+              print(f'{key}:{value} 地址已入黑名单 或已测试完成：',file=f)
             continue
         print('开始测速：',value)
-        finish.append(value)
+        sourceBalck.append(value)
         item,count=start(value)
         if item:
           items.extend(item)
           with open('testInfo.txt', 'a', encoding='utf-8') as f:
             print(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",file=f)
-            print(f'\t地址：{value}')
+            print(f'\t地址：{value}',file=f)
         else:
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
               print(f"{key}: 共{count}个地址，获取可用数量 0 个",file=f)
-              print(f'\t地址：{value}')
+              print(f'\t地址：{value}',file=f)
+    with open('testInfo.txt', 'a', encoding='utf-8') as f:
+            print(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============",file=f)
     if items:
       saveTojson(items)
       if creatLiveJSON():
         creatLivesTXT()
+
 
 def reTest():
     pattern='group-title=\"(\\w+)\"'
@@ -480,7 +487,10 @@ def testdel():
 if __name__ == '__main__':
     
     #main()
-    #creatLiveJSON()
+    creatLiveJSON()
     creatLivesTXT()
     #Setting().addSourceBlack('https://fs-im-kefu.7moor-fs1.com/ly/4d2c3f00-7d4c-11e5-af15-41bf63ae4ea0/1718114949789/tv.txt')
+    # items,count=start("https://mirror.ghproxy.com/raw.githubusercontent.com/ssili126/tv/main/itvlist.txt")
+    # print(f" 共{count}个地址，获取可用数量 {len(items)}")
     
+        

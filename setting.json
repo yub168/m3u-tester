@@ -1,5 +1,5 @@
 {
-  "minDownloadSpeed": 720000,
+  "minDownloadSpeed": 1000,
   "minVideoHeight": 720,
   "groupsFilter": [
     "央视",
