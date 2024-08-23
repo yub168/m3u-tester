@@ -266,17 +266,17 @@ def get_video_info(url):
 def downloadTester(downloader: Downloader):
     #chunck_size = 10240
     #filename=str(time.time())+'.mp4'
-        
+   
     try:
         resp=requests.get(downloader.url,stream=True,timeout=2)
         content=bytes()
         for chunk in resp.iter_content(chunk_size=10240):
-            if not chunk or time.time()-downloader.startTime>5:
+            if not chunk or (time.time()-downloader.startTime)>5:
                 break
             content=content+chunk
             downloader.recive = downloader.recive + len(chunk)
         downloader.endTime = time.time()
-        downloader.testTime=downloader.endTime-downloader
+        downloader.testTime=downloader.endTime-downloader.startTime
         if downloader.getSpeed()>Setting().getDownloadMinSpeed():
           # with open(filename,'wb') as f:
           #     f.write(content)
@@ -327,11 +327,11 @@ def test(item):
         if videoInfo:
             item.height=videoInfo['height']
             item.width=videoInfo['width']
-    item.speed = speed
-    print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
-    if item.speed > Setting().getDownloadMinSpeed() and item.height>=Setting().getVideoMinHeight():
-        return item
-      #print(item.__json__())
+        item.speed = speed
+        print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
+        if item.speed > Setting().getDownloadMinSpeed() and item.height>=Setting().getVideoMinHeight():
+            return item
+          #print(item.__json__())
     return None
 
 def saveTojson(item):
@@ -486,11 +486,11 @@ def testdel():
         print(df[df['title'].str.contains(f'CCTV[-_]?{end}$')])
 if __name__ == '__main__':
     
-    #main()
-    creatLiveJSON()
-    creatLivesTXT()
+    main()
+    # creatLiveJSON()
+    # creatLivesTXT()
     #Setting().addSourceBlack('https://fs-im-kefu.7moor-fs1.com/ly/4d2c3f00-7d4c-11e5-af15-41bf63ae4ea0/1718114949789/tv.txt')
-    # items,count=start("https://mirror.ghproxy.com/raw.githubusercontent.com/ssili126/tv/main/itvlist.txt")
+    # items,count=start("https://mirror.ghproxy.com/https://raw.githubusercontent.com/Ftindy/IPTV-URL/main/IPV6.m3u")
     # print(f" 共{count}个地址，获取可用数量 {len(items)}")
     
         
