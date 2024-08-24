@@ -8,9 +8,11 @@
     "央视",
     "卫视",
     "广东",
-    "湖南"
+    "湖南",
+    "央卫"
   ],
   "sourceUrls": {
+    "茶余": "https://ghproxy.net/https://raw.githubusercontent.com/ssili126/tv/main/itvlist.m3u",
     "fmml_ipv6": "https://iptv.b2og.com/fmml_ipv6.m3u",
     "cymz6_lives": "https://iptv.b2og.com/cymz6_lives.m3u",
     "y_g": "https://iptv.b2og.com/y_g.m3u",

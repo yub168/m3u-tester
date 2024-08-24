@@ -497,19 +497,14 @@ def reTest():
     result=re.search(pattern,text)
     print(result.group(1))
 
-def testdel():
-    with open('result.json', 'r', encoding='utf-8') as f:
-        data=json.load(f)
-        df=pd.DataFrame(data)
-        end='5\\+'
-        print(df[df['title'].str.contains(f'CCTV[-_]?{end}$')])
+def testSource(url):
+    items,count=start(url)
+    print(f" 共{count}个地址，获取可用数量 {len(items)}")
+
 if __name__ == '__main__':
     
     main()
     # creatLiveJSON()
     # creatLivesTXT()
-    #Setting().addSourceBlack('https://fs-im-kefu.7moor-fs1.com/ly/4d2c3f00-7d4c-11e5-af15-41bf63ae4ea0/1718114949789/tv.txt')
-    # items,count=start("https://mirror.ghproxy.com/https://raw.githubusercontent.com/Ftindy/IPTV-URL/main/IPV6.m3u")
-    # print(f" 共{count}个地址，获取可用数量 {len(items)}")
-    
+    #testSource("https://gitlab.com/xmbjm/ck/-/raw/main/iplove.txt")
         
