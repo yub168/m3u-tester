@@ -4,7 +4,7 @@
 import os
 import json
 import time
-from urllib.request import urlopen
+from urllib.request import urlopen,Request
 import requests
 from func_timeout import func_set_timeout
 from ffmpy import FFprobe
@@ -78,10 +78,12 @@ class Setting:
     def getSourceBlack(self):
         return self.setting.get('sourceBlack')
     
-    def addSourceBlack(self,url):
-        self.setting.get('sourceBlack').append(url)
+    def addSourceBlack(self,item):
+        self.setting.get('sourceBlack').update(item)
         with open('setting.json','w',encoding='utf-8') as f :
             json.dump(self.setting,f,ensure_ascii=False)
+    def getHeaders(self):
+        return self.setting.get('headers')
     
 def downLoadM3U(url):
     response = requests.get(url)
@@ -100,12 +102,12 @@ def downLoadM3U(url):
         print(f'M3U file saved as {local_filename}')
     else:
         print('Failed to retrieve M3U file')
-        
+
+# 根据配置地址生成待检测列表     
 def getAllM3UItems(dir):
-    
     items = []
     if dir.startswith('http'):
-        resp=requests.get(dir)
+        resp=requests.get(dir,headers=Setting().getHeaders())
         if resp.status_code==200:
             resp.encoding='utf-8'
             if '#EXTM3U' in resp.text:
@@ -118,12 +120,14 @@ def getAllM3UItems(dir):
         print('not net address!!!')
     return items
 
+# 判断列表中的值是否包含在指定的字符串中
 def isIn(list,str):
     for word in list:
         if word in str:
             return True
     return False
 
+# 读取 Txt 配置文件生成待测试列表
 def readText(resp):
     items=[]
     groups = ''
@@ -146,7 +150,7 @@ def readText(resp):
                 print('split error : '+line)
     return items
       
-                
+# 读取 m3u 配置文件生成待测试列表               
 def readM3u(resp):
     items=[]
     extinf = ''
@@ -185,7 +189,8 @@ def readM3u(resp):
     # except BaseException as e:
     #     print('保存json失败 %s' % e)
     return items       
-   
+
+# 用于自动生成空的 lives.json 表
 def creatLives(lives,groups,title):
     if groups in lives:
         lives[groups][title]=[]
@@ -193,12 +198,13 @@ def creatLives(lives,groups,title):
         lives[groups]={}
         lives[groups][title]=[]
         
-            
+# 获取m3u8地址中的真实视频地址用于测试    
 def getStreamUrl(m3u8):
     urls = []
     try:
         prefix = m3u8[0:m3u8.rindex('/') + 1]
-        with urlopen(m3u8, timeout=2) as resp:
+        request = Request(m3u8,headers=Setting().getHeaders())
+        with urlopen(request, timeout=2) as resp:
             top = False
             second = False
             firstLine = False
@@ -231,17 +237,28 @@ def getStreamUrl(m3u8):
         print('get stream url failed! %s' % e)
     return urls
 
+# 根据下载测试的视频字节流分析视频信息
 @func_set_timeout(18)
-def get_video_info(url):
+def get_video_info(content):
+    
     videoInfo={}
     startTime=time.time()
     #print(f"==============start ffprobe time : {time.time()}============")
     try:
-      command = ['ffprobe', '-v', 'quiet', '-print_format', 'json', '-show_format', '-show_streams',url]
-      process = subprocess.run(command,timeout=18,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-      # 测试用字节流
-      #command = ['ffprobe', '-v', 'quiet', '-print_format', 'json', '-show_format', '-show_streams']
-      #process = subprocess.run(command,timeout=18,stdout=subprocess.PIPE,stderr=subprocess.PIPE,input=url)
+
+      # 参数 ‘-’ 是不设置 ffprobe 以stdin做为输入
+      command = ['ffprobe','-', '-v', 'quiet', '-print_format', 'json',  '-show_streams']
+      # 参数 input 与 stdin=subprocess.PIPE 二选一 text=False 设置输入为非字符
+      process = subprocess.run(command,timeout=18,stdout=subprocess.PIPE,stderr=subprocess.PIPE,input=content)
+
+      # 用 Popen 方式
+      # process = subprocess.Popen(command,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=False)
+      # # 通过 stdin 发送字节数据
+      # process.stdin.write(url)
+      # process.stdin.close()  # 关闭 stdin，让 ffprobe 开始处理数据
+      # # 读取 stdout 和 stderr
+      # stdout, stderr = process.communicate()
+
       if process.returncode==0:
           cdata=json.loads(process.stdout.decode('utf-8'))
           if cdata:
@@ -255,7 +272,7 @@ def get_video_info(url):
               videoInfo["height"]=vheight
               videoInfo["width"]=vwidth
       else:
-          print("Error: ffprobe failed to execute. Return code: {}".format(process.stderr))  
+          print("Error: ffprobe failed to execute. Return code: {}".format(process.stderr.decode('utf-8')))  
       #print(f"==============stop ffprobe time : {time.time()}=============")  
       return videoInfo,time.time()-startTime
     except Exception as e:
@@ -263,12 +280,11 @@ def get_video_info(url):
         print('ffprobe get videoInfo error:',e)
         return False
 
+# 下载测试
 def downloadTester(downloader: Downloader):
-    #chunck_size = 10240
-    #filename=str(time.time())+'.mp4'
    
     try:
-        resp=requests.get(downloader.url,stream=True,timeout=2)
+        resp=requests.get(downloader.url,stream=True,timeout=2,headers=Setting().getHeaders())
         content=bytes()
         for chunk in resp.iter_content(chunk_size=10240):
             if not chunk or (time.time()-downloader.startTime)>5:
@@ -278,9 +294,7 @@ def downloadTester(downloader: Downloader):
         downloader.endTime = time.time()
         downloader.testTime=downloader.endTime-downloader.startTime
         if downloader.getSpeed()>Setting().getDownloadMinSpeed():
-          # with open(filename,'wb') as f:
-          #     f.write(content)
-          videoInfo,testTime=get_video_info(downloader.url)
+          videoInfo,testTime=get_video_info(content)
           downloader.testTime=downloader.testTime+testTime
           if videoInfo:
               downloader.videoInfo=videoInfo
@@ -431,7 +445,7 @@ def creatLivesTXT():
 def getLiveSource():
     list=Setting().getSourceUrls()
     url="https://gitee.com/yub168/myTvbox/raw/master/liveSource.json"
-    resp=requests.get(url)
+    resp=requests.get(url,headers=Setting().getHeaders())
     if resp.status_code==200:
         try:
             sourceList=resp.json()
@@ -446,14 +460,15 @@ def main():
     items=[]
     startTime=time.time()
     with open('testInfo.txt', 'a', encoding='utf-8') as f:
+            print("",file=f)
             print(f"=========={datetime.now()}开始，共{len(list)}个地址需要测试=============",file=f)
     for key,value in list.items():
-        if value in sourceBalck :
+        if value in sourceBalck.values() :
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
-              print(f'{key}:{value} 地址已入黑名单 或已测试完成：',file=f)
+              print(f'\t{key}:{value} 地址已入黑名单 或已测试完成：',file=f)
             continue
         print('开始测速：',value)
-        sourceBalck.append(value)
+        sourceBalck.update({key:value})
         item,count=start(value)
         if item:
           items.extend(item)
@@ -464,8 +479,12 @@ def main():
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
               print(f"{key}: 共{count}个地址，获取可用数量 0 个",file=f)
               print(f'\t地址：{value}',file=f)
+        if len(item)<20:
+            Setting().addSourceBlack({key:value})
     with open('testInfo.txt', 'a', encoding='utf-8') as f:
+            print("",file=f)
             print(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============",file=f)
+            print("",file=f)
     if items:
       saveTojson(items)
       if creatLiveJSON():
