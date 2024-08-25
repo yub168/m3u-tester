@@ -465,7 +465,7 @@ def main():
     for key,value in list.items():
         if value in sourceBalck.values() :
             with open('testInfo.txt', 'a', encoding='utf-8') as f:
-              print(f'\t{key}:{value} 地址已入黑名单 或已测试完成：',file=f)
+              print(f'{key}:{value} 地址已入黑名单 或已测试完成：',file=f)
             continue
         print('开始测速：',value)
         sourceBalck.update({key:value})
