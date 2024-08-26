@@ -318,6 +318,7 @@ def start(path='https://iptv.b2og.com/j_iptv.m3u',name=None,minSpeed=None,minHei
         filterItem=[result for result in filterItem if result is not None]
     return filterItem,len(items)
 
+finishedUrls=[]
 # 测试项目
 def test(item,minSpeed=None,minHeight=None):
     # print('params speed :',minSpeed)
@@ -328,30 +329,35 @@ def test(item,minSpeed=None,minHeight=None):
     if not minSpeed:
         minSpeed=Setting().getDownloadMinSpeed()
     url = item.url
+    if '$' in url:
+        url=url.split('$')[0]
     #print('地址：%s' % url)
-    stream_urls = []
-    if url.lower().endswith('.flv'):
-        stream_urls.append(url)
-    else:
-        stream_urls = getStreamUrl(url)
-    # 速度默认-1
-    speed = -1
-    if len(stream_urls) > 0:
-        # for stream in stream_urls:
-        #     #print('\t流：%s' % stream)
-        stream = stream_urls[0]
-        downloader = Downloader(stream)
-        downloadTester(downloader,minSpeed)
-        speed = downloader.getSpeed()
-        videoInfo=downloader.videoInfo
-        if videoInfo:
-            item.height=videoInfo['height']
-            item.width=videoInfo['width']
-        item.speed = speed
-        print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
-        if item.speed > minSpeed and item.height>=minHeight:
-            return item
-          #print(item.__json__())
+    if url not in finishedUrls:
+      finishedUrls.append(url)
+      stream_urls = []
+      if url.lower().endswith('.flv'):
+          stream_urls.append(url)
+      else:
+          stream_urls = getStreamUrl(url)
+      # 速度默认-1
+      speed = -1
+      if len(stream_urls) > 0:
+          # for stream in stream_urls:
+          #     #print('\t流：%s' % stream)
+          stream = stream_urls[0]
+          downloader = Downloader(stream)
+          downloadTester(downloader,minSpeed)
+          speed = downloader.getSpeed()
+          videoInfo=downloader.videoInfo
+          if videoInfo:
+              item.height=videoInfo['height']
+              item.width=videoInfo['width']
+          item.speed = speed
+          print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
+          if item.speed > minSpeed and item.height>=minHeight:
+              return item
+            #print(item.__json__())
+    print('\t当前地址已检测！！！')
     return None
 
 # 符合测试结果的项目存入 result.json
@@ -453,11 +459,13 @@ def main(url=None,name=None,minSpeed=None,minHeight=None):
     list = {name if name else time.time():url} if url else getLiveSource()
     sourceBalck=Setting().getSourceBlack()
     startTime=time.time()
-    
-    writeTestInfo(f"=========={datetime.now()}开始，共{len(list)}个地址需要测试=============",0)
+    count=0
+    writeTestInfo(f"=========={datetime.now()}开始，共{len(list)}个地址需要测试=============")
     for key,value in list.items():
+        count=count+1
+        currentTime=time.time()
         if value in sourceBalck.values() :
-            writeTestInfo(f'{key}:\t 地址已入黑名单 或已测试完成：',0)
+            writeTestInfo(f'{count}.\t{key}:\t 地址已入黑名单 或已测试完成：',0)
             writeTestInfo(f'\t地址：{value}')
             continue
         print('开始测速：',value)
@@ -465,14 +473,18 @@ def main(url=None,name=None,minSpeed=None,minHeight=None):
         item,count=start(value,key,minSpeed=minSpeed,minHeight=minHeight)
         if item:
           items.extend(item)
-          writeTestInfo(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
+          writeTestInfo(f"{count}.\t{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
           writeTestInfo(f'\t地址：{value}')
         else:
-          writeTestInfo(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
+          writeTestInfo(f"{count}.\t{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
           writeTestInfo(f'\t地址：{value}')
-        if len(item)<20:
-            Setting().addSourceBlack({key:value})
-        testRecord={"name":key,"url":value,"acount":count,"usefull":len(item),"testTime":time.time()}
+        # if len(item)<20:
+        #     Setting().addSourceBlack({key:value})
+        testRecord={
+                    "name":key,"url":value,"acount":count,
+                    "usefull":len(item),"testTime":time.strftime("%Y-%m-%d %X",time.localtime()),
+                    "useTime":(time.time()-currentTime)//60
+                    }
         addtestRecord(testRecord)
     writeTestInfo(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============",0)
     
