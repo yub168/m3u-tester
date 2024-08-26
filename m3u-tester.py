@@ -82,27 +82,23 @@ class Setting:
         self.setting.get('sourceBlack').update(item)
         with open('setting.json','w',encoding='utf-8') as f :
             json.dump(self.setting,f,ensure_ascii=False)
+
     def getHeaders(self):
         return self.setting.get('headers')
     
-def downLoadM3U(url):
-    response = requests.get(url)
- 
-    # 检查请求是否成功
-    if response.status_code == 200:
-        # 获取请求响应的内容
-        m3u_content = response.text
-    
-        # 设置本地文件的文件名
-        local_filename = 'downloaded_file.m3u'
-    
-        # 将M3U文件内容写入本地文件
-        with open(local_filename, 'w',encoding='utf-8') as file:
-            file.write(m3u_content)
-        print(f'M3U file saved as {local_filename}')
-    else:
-        print('Failed to retrieve M3U file')
+def addtestRecord(item):
+    testRecords=[]
+    with open('testRecords.json','r',encoding="utf-8") as f:
+        testRecords=json.load(f)
+        testRecords.append(item)
+    with open('testRecords.json','w',encoding="utf-8") as f:
+        json.dump(testRecords,f,ensure_ascii=False)
 
+def writeTestInfo(content,hasBlank=1):
+    with open('testInfo.txt', 'a', encoding='utf-8') as f:
+        print(content,file=f)
+        if hasBlank:
+            print('',file=f)
 # 根据配置地址生成待检测列表     
 def getAllM3UItems(dir):
     items = []
@@ -281,7 +277,7 @@ def get_video_info(content):
         return False
 
 # 下载测试
-def downloadTester(downloader: Downloader):
+def downloadTester(downloader: Downloader,minSpeed=Setting().getDownloadMinSpeed()):
    
     try:
         resp=requests.get(downloader.url,stream=True,timeout=2,headers=Setting().getHeaders())
@@ -293,7 +289,7 @@ def downloadTester(downloader: Downloader):
             downloader.recive = downloader.recive + len(chunk)
         downloader.endTime = time.time()
         downloader.testTime=downloader.endTime-downloader.startTime
-        if downloader.getSpeed()>Setting().getDownloadMinSpeed():
+        if downloader.getSpeed()>minSpeed:
           videoInfo,testTime=get_video_info(content)
           downloader.testTime=downloader.testTime+testTime
           if videoInfo:
@@ -304,8 +300,8 @@ def downloadTester(downloader: Downloader):
         downloader.recive = -1
     #os.remove(filename)
 
-# 开始检测 
-def start(path='https://iptv.b2og.com/j_iptv.m3u'):
+# 开始检测单一地址可用数量 
+def start(path='https://iptv.b2og.com/j_iptv.m3u',minSpeed=None,minHeight=None):
     
     filterItem=[]
     #path = os.getcwd()
@@ -313,14 +309,20 @@ def start(path='https://iptv.b2og.com/j_iptv.m3u'):
     print('发现项: %d' % len(items))
     if len(items):
       # 循环测速 加入多线程
-      with ThreadPoolExecutor(max_workers=5) as executor:
-        filterItem=list(executor.map(test,items))
+      with ThreadPoolExecutor(max_workers=6) as executor:
+        filterItem=list(executor.map(test,items,len(items)*[minSpeed],len(items)*[minHeight]))
         filterItem=[result for result in filterItem if result is not None]
     return filterItem,len(items)
 
-def test(item):
-   
+# 测试项目
+def test(item,minSpeed=None,minHeight=None):
+    # print('params speed :',minSpeed)
+    # print('params height:',minHeight)
     print(f'测试：{item.groups}__{item.title}')
+    if not minHeight:
+        minHeight=Setting().getVideoMinHeight()
+    if not minSpeed:
+        minSpeed=Setting().getDownloadMinSpeed()
     url = item.url
     #print('地址：%s' % url)
     stream_urls = []
@@ -335,7 +337,7 @@ def test(item):
         #     #print('\t流：%s' % stream)
         stream = stream_urls[0]
         downloader = Downloader(stream)
-        downloadTester(downloader)
+        downloadTester(downloader,minSpeed)
         speed = downloader.getSpeed()
         videoInfo=downloader.videoInfo
         if videoInfo:
@@ -343,11 +345,12 @@ def test(item):
             item.width=videoInfo['width']
         item.speed = speed
         print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
-        if item.speed > Setting().getDownloadMinSpeed() and item.height>=Setting().getVideoMinHeight():
+        if item.speed > minSpeed and item.height>=minHeight:
             return item
           #print(item.__json__())
     return None
 
+# 符合测试结果的项目存入 result.json
 def saveTojson(item):
     print('当前总共地址数：',len(item))
     try:
@@ -357,24 +360,8 @@ def saveTojson(item):
     except BaseException as e:
         print('保存json失败 %s' % e)
 
-    # # 优质资源写入新文件
-    # with open('wonderful.m3u', 'w+', encoding='utf-8') as f:
-    #     print('#EXTM3U', file=f)
-    #     for item in items:
-    #         # 速度大于700KB
-    #         if item.speed > 1024 * 700:
-    #             print(item.extinf, file=f)
-    #             print(item.url, file=f)
-    # with open('excellent.m3u', 'w+', encoding='utf-8') as f:
-    #     print('#EXTM3U', file=f)
-    #     for item in items:
-    #         # 速度大于1MB
-    #         if item.speed > 1024 * 1024:
-    #             print(item.extinf, file=f)
-    #             print(item.url, file=f)
-
 #
-#   生成lives.json
+#   根据 result.json 生成 lives.json
 #
 def creatLiveJSON():
     with open('result.json', 'r', encoding='utf-8') as f:
@@ -422,7 +409,7 @@ def creatLiveJSON():
             
               
 #
-#   生成lives.json
+#   根据lives.json 生成lives.txt 节目表
 #
 def creatLivesTXT():
     with open('lives.json', 'r', encoding='utf-8') as f1:
@@ -441,7 +428,8 @@ def creatLivesTXT():
                           if icount==count:
                               break
                   print('',file=f2)
-                   
+
+# 从myTvbox获取 lives列表   并加本地列表      
 def getLiveSource():
     list=Setting().getSourceUrls()
     url="https://gitee.com/yub168/myTvbox/raw/master/liveSource.json"
@@ -454,38 +442,42 @@ def getLiveSource():
         except Exception as e:
             print('liveSource json 转换失败！',e)
     return list
-def main():
-    list=getLiveSource()
-    sourceBalck=Setting().getSourceBlack()
+
+def main(url=None,name=None,minSpeed=None,minHeight=None):
+    
     items=[]
+    list = {name if name else time.time():url} if url else getLiveSource()
+    sourceBalck=Setting().getSourceBlack()
     startTime=time.time()
-    with open('testInfo.txt', 'a', encoding='utf-8') as f:
-            print("",file=f)
-            print(f"=========={datetime.now()}开始，共{len(list)}个地址需要测试=============",file=f)
+    
+    writeTestInfo(f"=========={datetime.now()}开始，共{len(list)}个地址需要测试=============",0)
     for key,value in list.items():
         if value in sourceBalck.values() :
-            with open('testInfo.txt', 'a', encoding='utf-8') as f:
-              print(f'{key}:{value} 地址已入黑名单 或已测试完成：',file=f)
+            writeTestInfo(f'{key}:\t 地址已入黑名单 或已测试完成：',0)
+            writeTestInfo(f'\t地址：{value}')
             continue
         print('开始测速：',value)
         sourceBalck.update({key:value})
-        item,count=start(value)
+        item,count=start(value,minSpeed=minSpeed,minHeight=minHeight)
         if item:
           items.extend(item)
-          with open('testInfo.txt', 'a', encoding='utf-8') as f:
-            print(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",file=f)
-            print(f'\t地址：{value}',file=f)
+          writeTestInfo(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
+          writeTestInfo(f'\t地址：{value}')
         else:
-            with open('testInfo.txt', 'a', encoding='utf-8') as f:
-              print(f"{key}: 共{count}个地址，获取可用数量 0 个",file=f)
-              print(f'\t地址：{value}',file=f)
+          writeTestInfo(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
+          writeTestInfo(f'\t地址：{value}')
         if len(item)<20:
             Setting().addSourceBlack({key:value})
-    with open('testInfo.txt', 'a', encoding='utf-8') as f:
-            print("",file=f)
-            print(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============",file=f)
-            print("",file=f)
+        testRecord={"name":key,"url":value,"acount":count,"usefull":len(item),"testTime":time.time()}
+        addtestRecord(testRecord)
+    writeTestInfo(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============",0)
+    
     if items:
+      if url:
+          with open('result.json', 'r', encoding='utf-8') as f:
+              oldList=json.load(f)
+              items.extend(oldList)
+              print('after items:',len(items))
       saveTojson(items)
       if creatLiveJSON():
         creatLivesTXT()
@@ -497,8 +489,8 @@ def reTest():
     result=re.search(pattern,text)
     print(result.group(1))
 
-def testSource(url):
-    items,count=start(url)
+def testSource(url,*args):
+    items,count=start(url,*args)
     print(f" 共{count}个地址，获取可用数量 {len(items)}")
 
 if __name__ == '__main__':
@@ -506,5 +498,5 @@ if __name__ == '__main__':
     main()
     # creatLiveJSON()
     # creatLivesTXT()
-    #testSource("https://gitlab.com/xmbjm/ck/-/raw/main/iplove.txt")
-        
+    #testSource("https://xn--tkh-mf3g9f.v.nxog.top/m/tv/1/",2000,1080)
+    
