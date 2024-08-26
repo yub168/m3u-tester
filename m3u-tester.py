@@ -100,16 +100,16 @@ def writeTestInfo(content,hasBlank=1):
         if hasBlank:
             print('',file=f)
 # 根据配置地址生成待检测列表     
-def getAllM3UItems(dir):
+def getAllM3UItems(dir,name):
     items = []
     if dir.startswith('http'):
         resp=requests.get(dir,headers=Setting().getHeaders())
         if resp.status_code==200:
             resp.encoding='utf-8'
             if '#EXTM3U' in resp.text:
-                items=readM3u(resp)
+                items=readM3u(resp,name)
             if '#genre#' in resp.text:
-                items=readText(resp)
+                items=readText(resp,name)
         else:
             print('downLoad error!!!')
     else:
@@ -124,7 +124,7 @@ def isIn(list,str):
     return False
 
 # 读取 Txt 配置文件生成待测试列表
-def readText(resp):
+def readText(resp,name):
     items=[]
     groups = ''
     groupsFilter=Setting().getGroupsFilter()
@@ -138,6 +138,8 @@ def readText(resp):
             if len(info)>1:
               title=line.split(',')[0]
               url=line.split(',')[1]
+              if '$' not in url:
+                  url=url+'$'+name
               item.groups=groups
               item.title=title
               item.url=url
@@ -147,7 +149,7 @@ def readText(resp):
     return items
       
 # 读取 m3u 配置文件生成待测试列表               
-def readM3u(resp):
+def readM3u(resp,name):
     items=[]
     extinf = ''
     groups=''
@@ -163,7 +165,9 @@ def readM3u(resp):
               item.extinf=extinf
               item.groups=groups
               item.title=title
-              item.url=line
+              if '$' not in line:
+                  url=line+'$'+name
+              item.url=url
               items.append(item)
             extinf = ''
         if line.startswith('#EXTINF'):
@@ -301,11 +305,11 @@ def downloadTester(downloader: Downloader,minSpeed=Setting().getDownloadMinSpeed
     #os.remove(filename)
 
 # 开始检测单一地址可用数量 
-def start(path='https://iptv.b2og.com/j_iptv.m3u',minSpeed=None,minHeight=None):
+def start(path='https://iptv.b2og.com/j_iptv.m3u',name=None,minSpeed=None,minHeight=None):
     
     filterItem=[]
     #path = os.getcwd()
-    items = getAllM3UItems(path)
+    items = getAllM3UItems(path,name)
     print('发现项: %d' % len(items))
     if len(items):
       # 循环测速 加入多线程
@@ -458,7 +462,7 @@ def main(url=None,name=None,minSpeed=None,minHeight=None):
             continue
         print('开始测速：',value)
         sourceBalck.update({key:value})
-        item,count=start(value,minSpeed=minSpeed,minHeight=minHeight)
+        item,count=start(value,key,minSpeed=minSpeed,minHeight=minHeight)
         if item:
           items.extend(item)
           writeTestInfo(f"{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
