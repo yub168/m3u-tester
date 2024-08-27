@@ -14,6 +14,8 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import subprocess
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+pd.set_option('display.unicode.east_asian_width', True)
 
 class Item:
     def __init__(self):
@@ -86,6 +88,10 @@ class Setting:
     def getHeaders(self):
         return self.setting.get('headers')
     
+    def getLivesCount(self):
+        return self.setting.get('livesCount')
+    
+    
 def addtestRecord(item):
     testRecords=[]
     with open('testRecords.json','r',encoding="utf-8") as f:
@@ -123,6 +129,7 @@ def isIn(list,str):
             return True
     return False
 
+
 # 读取 Txt 配置文件生成待测试列表
 def readText(resp,name):
     items=[]
@@ -137,13 +144,14 @@ def readText(resp,name):
             info=line.split(',')
             if len(info)>1:
               title=line.split(',')[0]
-              url=line.split(',')[1]
-              if '$' not in url:
+              urlStr=line.split(',')[1]
+              if urlStr:
+                  url=urlStr.split('$')[0]
                   url=url+'$'+name
-              item.groups=groups
-              item.title=title
-              item.url=url
-              items.append(item)
+                  item.groups=groups
+                  item.title=title
+                  item.url=url
+                  items.append(item)
             else:
                 print('split error : '+line)
     return items
@@ -165,8 +173,8 @@ def readM3u(resp,name):
               item.extinf=extinf
               item.groups=groups
               item.title=title
-              if '$' not in line:
-                  url=line+'$'+name
+              url=line.split('$')[0]
+              url=url+'$'+name
               item.url=url
               items.append(item)
             extinf = ''
@@ -318,22 +326,20 @@ def start(path='https://iptv.b2og.com/j_iptv.m3u',name=None,minSpeed=None,minHei
         filterItem=[result for result in filterItem if result is not None]
     return filterItem,len(items)
 
-finishedUrls=[]
+finishedUrls=set()
 # 测试项目
 def test(item,minSpeed=None,minHeight=None):
     # print('params speed :',minSpeed)
     # print('params height:',minHeight)
-    print(f'测试：{item.groups}__{item.title}')
+    name=item.url.split('$')[1]
+    print(f'测试：源：{name} {item.groups}__{item.title}')
     if not minHeight:
         minHeight=Setting().getVideoMinHeight()
     if not minSpeed:
         minSpeed=Setting().getDownloadMinSpeed()
-    url = item.url
-    if '$' in url:
-        url=url.split('$')[0]
-    #print('地址：%s' % url)
+    url = item.url.split('$')[0]
     if url not in finishedUrls:
-      finishedUrls.append(url)
+      finishedUrls.add(url)
       stream_urls = []
       if url.lower().endswith('.flv'):
           stream_urls.append(url)
@@ -357,7 +363,10 @@ def test(item,minSpeed=None,minHeight=None):
           if item.speed > minSpeed and item.height>=minHeight:
               return item
             #print(item.__json__())
-    print('\t当前地址已检测！！！')
+      else:
+          print('没有获取到视频流地址！') 
+    else:
+        print('\t当前地址已检测！！！')
     return None
 
 # 符合测试结果的项目存入 result.json
@@ -421,7 +430,7 @@ def creatLiveJSON():
 #
 #   根据lives.json 生成lives.txt 节目表
 #
-def creatLivesTXT():
+def creatLivesTXT(setcount=Setting().getLivesCount()):
     with open('lives.json', 'r', encoding='utf-8') as f1:
           lives=json.load(f1)
           with open('lives.txt', 'w', encoding='utf-8') as f2:
@@ -430,7 +439,7 @@ def creatLivesTXT():
                   print(groups+',#genre#',file=f2)
                   for channel,urls in channels.items():
                       if urls:
-                        count=len(urls) if len(urls)<8 else 8
+                        count=len(urls) if len(urls)<setcount else setcount
                         icount=0
                         for url in urls:
                           print(channel+','+url,file=f2)
@@ -459,13 +468,13 @@ def main(url=None,name=None,minSpeed=None,minHeight=None):
     list = {name if name else time.time():url} if url else getLiveSource()
     sourceBalck=Setting().getSourceBlack()
     startTime=time.time()
-    count=0
+    num=0
     writeTestInfo(f"=========={datetime.now()}开始，共{len(list)}个地址需要测试=============")
     for key,value in list.items():
-        count=count+1
+        num=num+1
         currentTime=time.time()
         if value in sourceBalck.values() :
-            writeTestInfo(f'{count}.\t{key}:\t 地址已入黑名单 或已测试完成：',0)
+            writeTestInfo(f'{num}.\t{key}:\t 地址已入黑名单 或已测试完成：',0)
             writeTestInfo(f'\t地址：{value}')
             continue
         print('开始测速：',value)
@@ -473,27 +482,26 @@ def main(url=None,name=None,minSpeed=None,minHeight=None):
         item,count=start(value,key,minSpeed=minSpeed,minHeight=minHeight)
         if item:
           items.extend(item)
-          writeTestInfo(f"{count}.\t{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
+          writeTestInfo(f"{num}.\t{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
           writeTestInfo(f'\t地址：{value}')
         else:
-          writeTestInfo(f"{count}.\t{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
+          writeTestInfo(f"{num}.\t{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
           writeTestInfo(f'\t地址：{value}')
         # if len(item)<20:
         #     Setting().addSourceBlack({key:value})
         testRecord={
                     "name":key,"url":value,"acount":count,
-                    "usefull":len(item),"testTime":time.strftime("%Y-%m-%d %X",time.localtime()),
-                    "useTime":(time.time()-currentTime)//60
+                    "usefull":len(item),"testTime":time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                    "useTime":round((time.time()-currentTime)/60,3)
                     }
         addtestRecord(testRecord)
-    writeTestInfo(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============",0)
-    
+    writeTestInfo(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============")
     if items:
       if url:
           with open('result.json', 'r', encoding='utf-8') as f:
               oldList=json.load(f)
               items.extend(oldList)
-              print('after items:',len(items))
+              #print('after items:',len(items))
       saveTojson(items)
       if creatLiveJSON():
         creatLivesTXT()
@@ -505,14 +513,20 @@ def reTest():
     result=re.search(pattern,text)
     print(result.group(1))
 
-def testSource(url,*args):
-    items,count=start(url,*args)
+def testSource(url,name,*args):
+    items,count=start(url,name,*args)
     print(f" 共{count}个地址，获取可用数量 {len(items)}")
 
+def alayRecords():
+    with open('testRecords.json',"r",encoding='utf-8') as f:
+        dict = json.load(f)
+        df = pd.DataFrame(dict)
+        df_sorted = df.sort_values(by=['name', 'usefull'],ignore_index=True)
+        print(df_sorted)
 if __name__ == '__main__':
     
-    main()
+    #main()
     # creatLiveJSON()
     # creatLivesTXT()
-    #testSource("https://xn--tkh-mf3g9f.v.nxog.top/m/tv/1/",2000,1080)
-    
+    #testSource("https://cors.isteed.cc/https://raw.githubusercontent.com/n3rddd/CTVLive/main/live.txt","雷蒙影视",800,720)
+    alayRecords()
