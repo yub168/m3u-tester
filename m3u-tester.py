@@ -525,8 +525,8 @@ def alayRecords():
         print(df_sorted)
 if __name__ == '__main__':
     
-    #main()
+    main()
     # creatLiveJSON()
     # creatLivesTXT()
     #testSource("https://cors.isteed.cc/https://raw.githubusercontent.com/n3rddd/CTVLive/main/live.txt","雷蒙影视",800,720)
-    alayRecords()
+    #alayRecords()
