@@ -15,7 +15,9 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import subprocess
 pd.set_option('display.unicode.ambiguous_as_wide', True)
-pd.set_option('display.unicode.east_asian_width', True)
+
+#pd.set_option('display.unicode.east_asian_width', True)
+#pd.set_option('display.unicode.east_asian_width', True)
 
 class Item:
     def __init__(self):
@@ -521,12 +523,48 @@ def alayRecords():
     with open('testRecords.json',"r",encoding='utf-8') as f:
         dict = json.load(f)
         df = pd.DataFrame(dict)
-        df_sorted = df.sort_values(by=['name', 'usefull'],ignore_index=True)
+        df_sorted = df.sort_values(by=['name', 'usefull'],ignore_index=True)  
         print(df_sorted)
+
+def alayResult():
+    with open('result.json',"r",encoding='utf-8') as f:
+        dict = json.load(f)
+        df = pd.DataFrame(dict)
+        df_sorted = df.sort_values(by='url',ignore_index=True)
+        df_filter=df_sorted[['url','title']]
+        df_filter=df_filter.style.set_properties(**{'text-align': 'justify'})
+        with open('alayResult.json','w',encoding='utf-8') as f:
+            f.write(df_filter.to_string())
+        #print(df_sorted)
+
+def creatTestTxt():
+    code=0
+    items={
+        '101.229.227.246:7777':'http://101.229.227.246:7777/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+        '111.160.17.2:59902':'http://111.160.17.2:59902/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+        '113.57.93.165:9900':'http://113.57.93.165:9900/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+        '119.163.199.98:9901':'http://119.163.199.98:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+        '123.189.36.186:9901':'http://123.189.36.186:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+        '223.151.49.74:59901':'http://223.151.49.74:59901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+        '223.159.8.218:8099':'http://223.159.8.218:8099/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0',
+        '58.48.37.158:1111':'http://58.48.37.158:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+        }
+    
+    maxCount=2000
+    with open('test1.txt', 'w', encoding='utf-8') as f:
+      for key,value in items.items():
+          print(key+',#genre#',file=f)
+          for i in range(1,maxCount):
+            code=format(i,'04d')
+            print(str(i)+","+value.format(code),file=f)
+
+        
 if __name__ == '__main__':
     
-    main()
+    #main()
     # creatLiveJSON()
     # creatLivesTXT()
     #testSource("https://cors.isteed.cc/https://raw.githubusercontent.com/n3rddd/CTVLive/main/live.txt","雷蒙影视",800,720)
     #alayRecords()
+    #alayResult()
+    creatTestTxt()

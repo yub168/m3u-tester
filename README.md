@@ -18,3 +18,37 @@ python3 m3u-tester.py
 
 # 地址源
 1. https://iptv.b2og.com/cymz6_lives.m3u 速度不错
+
+# china IPTV
+http://223.151.49.74:59901/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0$饭太硬_TV
+http://223.151.49.74:59901/tsfile/live/0018_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播 CCTV-5+ 体育赛事,
+http://223.151.49.74:59901/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播 CCTV-13 新闻
+
+http://223.159.8.218:8099/tsfile/live/0001_1.m3u8?key=txiptv&playlive=0&authid=0摸鱼儿_SAO0
+http://223.159.8.218:8099/tsfile/live/0013_1.m3u8?key=txiptv&playlive=0&authid=0$摸鱼儿_SAO0 CCTV-13 新闻,
+http://223.159.8.218:8099/tsfile/live/0122_1.m3u8?key=txiptv&playlive=0&authid=0$摸鱼儿_SAO0 北京卫视,
+
+http://113.57.93.165:9900/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0晨瑞_公众号【晨瑞黑科】直播源
+
+http://101.229.227.246:7777/tsfile/live/0002_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
+
+http://58.245.97.28:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=0&authid=0$摸鱼儿_SAO0
+
+http://58.51.111.46:1111/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0晨瑞_公众号【晨瑞黑科】直播源
+http://58.51.111.46:1111/tsfile/live/1021_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源  cctv5+
+http://58.51.111.46:1111/tsfile/live/1006_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源 CCTV-6 电影
+http://58.51.111.46:1111/tsfile/live/1013_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源 CCTV-13 新闻
+
+http://58.48.37.158:1111/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源 CCTV-13 新闻
+
+http://60.208.104.234:352/tsfile/live/0007_1.m3u8?key=txiptv&playlive=0&authid=0$饭太硬_TV CCTV-7 国防军事
+http://60.208.104.234:352/tsfile/live/0013_1.m3u8?key=txiptv&playlive=0&authid=0$饭太硬_TV CCTV-13 新闻,
+
+
+http://218.76.32.193:9901/tsfile/live/1020_1.m3u8$饭太硬_TV CHC动作电影
+http://218.76.32.193:9901/tsfile/live/1018_1.m3u8$饭太硬_TV CHC家庭影院
+
+http://119.163.199.98:9901/tsfile/live/0122_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0 北京卫视
+
+#####
+http://mobilelive-ds.ysp.cctv.cn/ysp/2013693901.m3u8?key=txiptv&playlive=1&authid=0$饭太硬_TV  CCTV-6 电影,
