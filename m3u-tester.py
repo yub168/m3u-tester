@@ -384,18 +384,18 @@ def saveTojson(item,file='result.json'):
 #
 #   根据 result.json 生成 lives.json
 #
-def creatLiveJSON():
-    with open('result.json', 'r', encoding='utf-8') as f:
+def creatLiveJSON(testResult='result.json',livesJson='lives.json'):
+    with open(testResult, 'r', encoding='utf-8') as f:
         data=json.load(f)
         df=pd.DataFrame(data)
         if df.empty:
           return False
         lives={}
-        with open('lives.json', 'r', encoding='utf-8') as f1:
+        with open(livesJson, 'r', encoding='utf-8') as f1:
             lives=json.load(f1)
             for groups,value in lives.items():
                 for channle,urls in value.items():
-                    name=channle.split(' ')[0]
+                    name=channle.split(' ')[0] # 针对cctv
                     #print('select :',name)
                     if name.startswith('CCTV'):
                       end=name[5:]
@@ -420,10 +420,9 @@ def creatLiveJSON():
                         #print(urls)
                     else:
                         print(f'{channle} 没有地址！！！')
-            # 从起位置写入
+            
         if lives:
-            with open('lives.json', 'w', encoding='utf-8') as f1:
-              f1.seek(0)
+            with open(livesJson, 'w', encoding='utf-8') as f1:
               json.dump(lives,f1,ensure_ascii=False)
               return True
         
@@ -538,7 +537,7 @@ def alayResult(path='result.json'):
         #print(df_sorted)
 
 def creatTestJson(sourcelist=None,add=1):
-    filename_testResult_json='test1result.json'
+    iptvTestResult='iptvTestResult.json'
     if not sourcelist:
       sourcelist={
           '101.229.227.246:7777':'http://101.229.227.246:7777/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',#速度有点卡 300-600K
@@ -581,7 +580,7 @@ def creatTestJson(sourcelist=None,add=1):
     oldList=[]
     finishGroups=[]
     if add:
-      with open(filename_testResult_json, 'r', encoding='utf-8') as f:
+      with open(iptvTestResult, 'r', encoding='utf-8') as f:
           oldList=json.load(f)
           finishGroups=pd.DataFrame(oldList)['groups'].to_list()
     
@@ -607,20 +606,20 @@ def creatTestJson(sourcelist=None,add=1):
               print('没有可测项目')
           if filterItem:
               oldList.extend(filterItem)
-              saveTojson(oldList,filename_testResult_json)
+              saveTojson(oldList,iptvTestResult)
         else:
             print(f'{key} 已经测试过！！！')
     
     
 def creatTestTxt():
-    filename_testResult_json='test1result.json'
+    iptvTestResult='iptvTestResult.json'
     filename_test_txt='iptvTest.txt'
     
     
     with open('titleTranslate.json','r',encoding='utf-8') as f:
         titleTranslate=json.load(f)
     # 根据 json 文件 生成可用的txt
-    with open(filename_testResult_json,'r',encoding='utf-8') as f:
+    with open(iptvTestResult,'r',encoding='utf-8') as f:
       df = pd.DataFrame(json.load(f))
       groups=df['groups'].unique()
       #print(groups)
@@ -639,8 +638,25 @@ def creatTestTxt():
     with open('titleTranslate.json','w',encoding='utf-8') as f:
         json.dump(titleTranslate,f,ensure_ascii=False)
           
-
+def translateTilte():
+    with open('titleTranslate.json','r',encoding='utf-8') as f:
+        titles=json.load(f)
+    with open('ipTvTestResult.json','r',encoding='utf-8') as f:
+        result=json.load(f)
+        for item in result:
+            # 获取需要查询的组及标题
+            groups=item.get('groups')
+            oldTitle=item.get('title')
+            t_groups=titles.get(groups)
+            if t_groups:
+                trueName=t_groups.get(oldTitle)
+                if trueName:
+                    item['title']=trueName
+                else:
+                    item['缺省']
+    return result
         
+       
 if __name__ == '__main__':
     
     #main()
