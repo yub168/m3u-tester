@@ -371,12 +371,12 @@ def test(item,minSpeed=None,minHeight=None):
         print('\t当前地址已检测！！！')
     return None
 
-# 符合测试结果的项目存入 result.json
-def saveTojson(item):
+# 符合测试结果的项目存入 result.json  item 为 Item 对象列表
+def saveTojson(item,file='result.json'):
     print('当前总共地址数：',len(item))
     try:
         # 包含测试结果，存入json
-        with open('result.json', 'w', encoding='utf-8') as f:
+        with open(file, 'w', encoding='utf-8') as f:
             json.dump(item, f, cls=ItemJSONEncoder,ensure_ascii=False)
     except BaseException as e:
         print('保存json失败 %s' % e)
@@ -428,27 +428,27 @@ def creatLiveJSON():
               return True
         
             
-              
 #
 #   根据lives.json 生成lives.txt 节目表
 #
-def creatLivesTXT(setcount=Setting().getLivesCount()):
-    with open('lives.json', 'r', encoding='utf-8') as f1:
-          lives=json.load(f1)
-          with open('lives.txt', 'w', encoding='utf-8') as f2:
-            for groups,channels in lives.items():
-                if any(value for value in channels.values()):
-                  print(groups+',#genre#',file=f2)
-                  for channel,urls in channels.items():
-                      if urls:
-                        count=len(urls) if len(urls)<setcount else setcount
-                        icount=0
-                        for url in urls:
-                          print(channel+','+url,file=f2)
-                          icount=icount+1
-                          if icount==count:
-                              break
-                  print('',file=f2)
+def creatLivesTXT(lives=None,file='lives.json',setcount=Setting().getLivesCount()):
+    if not lives:
+      with open('lives.json', 'r', encoding='utf-8') as f1:
+            lives=json.load(f1)
+    with open('lives.txt', 'w', encoding='utf-8') as f2:
+      for groups,channels in lives.items():
+          if any(value for value in channels.values()):
+            print(groups+',#genre#',file=f2)
+            for channel,urls in channels.items():
+                if urls:
+                  count=len(urls) if len(urls)<setcount else setcount
+                  icount=0
+                  for url in urls:
+                    print(channel+','+url,file=f2)
+                    icount=icount+1
+                    if icount==count:
+                        break
+            print('',file=f2)
 
 # 从myTvbox获取 lives列表   并加本地列表      
 def getLiveSource():
@@ -526,8 +526,8 @@ def alayRecords():
         df_sorted = df.sort_values(by=['name', 'usefull'],ignore_index=True)  
         print(df_sorted)
 
-def alayResult():
-    with open('result.json',"r",encoding='utf-8') as f:
+def alayResult(path='result.json'):
+    with open(path,"r",encoding='utf-8') as f:
         dict = json.load(f)
         df = pd.DataFrame(dict)
         df_sorted = df.sort_values(by='url',ignore_index=True)
@@ -537,26 +537,63 @@ def alayResult():
             f.write(df_filter.to_string())
         #print(df_sorted)
 
-def creatTestTxt():
-    code=0
-    items={
-        '101.229.227.246:7777':'http://101.229.227.246:7777/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-        '111.160.17.2:59902':'http://111.160.17.2:59902/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-        '113.57.93.165:9900':'http://113.57.93.165:9900/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-        '119.163.199.98:9901':'http://119.163.199.98:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-        '123.189.36.186:9901':'http://123.189.36.186:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-        '223.151.49.74:59901':'http://223.151.49.74:59901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-        '223.159.8.218:8099':'http://223.159.8.218:8099/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0',
-        '58.48.37.158:1111':'http://58.48.37.158:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-        }
+def creatTestTxt(sourcelist=None,add=1):
+    filename_testResult_json='test1result.json'
+    filename_test_txt='text1.txt'
+    if not sourcelist:
+      sourcelist={
+          '101.229.227.246:7777':'http://101.229.227.246:7777/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          '111.160.17.2:59902':'http://111.160.17.2:59902/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          '113.57.93.165:9900':'http://113.57.93.165:9900/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          '119.163.199.98:9901':'http://119.163.199.98:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          '123.189.36.186:9901':'http://123.189.36.186:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          '223.151.49.74:59901':'http://223.151.49.74:59901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          '223.159.8.218:8099':'http://223.159.8.218:8099/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0',
+          '58.48.37.158:1111':'http://58.48.37.158:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          }
+    oldList=[]
+    finishGroups=[]
+    if add:
+      with open(filename_testResult_json, 'r', encoding='utf-8') as f:
+          oldList=json.load(f)
+          finishGroups=pd.DataFrame(oldList)['groups'].to_list()
     
-    maxCount=2000
-    with open('test1.txt', 'w', encoding='utf-8') as f:
-      for key,value in items.items():
-          print(key+',#genre#',file=f)
+    # 生成测试列表 并测试 返回测试结果并添加到 test1result.json 文件中
+    for key,value in sourcelist.items():
+        if key not in finishGroups:
+          items=[]
+          maxCount=2000
           for i in range(1,maxCount):
-            code=format(i,'04d')
-            print(str(i)+","+value.format(code),file=f)
+              item=Item()
+              item.groups=key
+              item.title=str(i)
+              code=format(i,'04d')
+              item.url=value.format(code)+'$'+key
+              items.append(item)
+          if items:
+          # 循环测速 加入多线程
+            with ThreadPoolExecutor(max_workers=6) as executor:
+              filterItem=list(executor.map(test,items,len(items)*[10],len(items)*[500]))
+              filterItem=[result for result in filterItem if result is not None]
+          else:
+              print('没有可测项目')
+          if filterItem:
+              oldList.extend(filterItem)
+              saveTojson(oldList,filename_testResult_json)
+        else:
+            print(f'{key} 已经测试过！！！')
+    
+    # 根据 json 文件 生成可用的txt
+    with open(filename_testResult_json,'r',encoding='utf-8') as f:
+      df = pd.DataFrame(json.load(f))
+      with open(filename_test_txt,'w',encoding='utf-8') as f:   
+          for key,value in sourcelist.items():
+              filter=df[df['groups']==key]
+              print(key+',#genre#',file=f)
+              for index, row in filter.iterrows():
+                  print(row['title']+','+row['url'],file=f)
+
+          
 
         
 if __name__ == '__main__':
@@ -566,5 +603,5 @@ if __name__ == '__main__':
     # creatLivesTXT()
     #testSource("https://cors.isteed.cc/https://raw.githubusercontent.com/n3rddd/CTVLive/main/live.txt","雷蒙影视",800,720)
     #alayRecords()
-    #alayResult()
-    creatTestTxt()
+    #alayResult('test1result.json')
+    creatTestTxt(add=0)
