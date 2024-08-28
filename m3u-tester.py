@@ -614,7 +614,7 @@ def creatTestJson(sourcelist=None,add=1):
     
 def creatTestTxt():
     filename_testResult_json='test1result.json'
-    filename_test_txt='text1.txt'
+    filename_test_txt='iptvTest.txt'
     
     
     with open('titleTranslate.json','r',encoding='utf-8') as f:
