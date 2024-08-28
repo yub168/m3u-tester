@@ -531,25 +531,52 @@ def alayResult(path='result.json'):
         dict = json.load(f)
         df = pd.DataFrame(dict)
         df_sorted = df.sort_values(by='url',ignore_index=True)
-        df_filter=df_sorted[['url','title']]
+        df_filter=df_sorted[['url','title','speed']]
         df_filter=df_filter.style.set_properties(**{'text-align': 'justify'})
         with open('alayResult.json','w',encoding='utf-8') as f:
             f.write(df_filter.to_string())
         #print(df_sorted)
 
-def creatTestTxt(sourcelist=None,add=1):
+def creatTestJson(sourcelist=None,add=1):
     filename_testResult_json='test1result.json'
-    filename_test_txt='text1.txt'
     if not sourcelist:
       sourcelist={
-          '101.229.227.246:7777':'http://101.229.227.246:7777/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-          '111.160.17.2:59902':'http://111.160.17.2:59902/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-          '113.57.93.165:9900':'http://113.57.93.165:9900/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-          '119.163.199.98:9901':'http://119.163.199.98:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-          '123.189.36.186:9901':'http://123.189.36.186:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-          '223.151.49.74:59901':'http://223.151.49.74:59901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
-          '223.159.8.218:8099':'http://223.159.8.218:8099/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0',
-          '58.48.37.158:1111':'http://58.48.37.158:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',
+          '101.229.227.246:7777':'http://101.229.227.246:7777/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',#速度有点卡 300-600K
+          '111.160.17.2:59902':'http://111.160.17.2:59902/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',# 速度一般 300-500k 但台少 只有卫视且还少部分台 央卫视编码同上
+          '113.57.93.165:9900':'http://113.57.93.165:9900/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 速度不好300K，且台少 央卫视编码同上 放弃
+          '119.163.199.98:9901':'http://119.163.199.98:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 速度差200-300k 只有央卫视 央卫视编码同上 放弃
+          '123.189.36.186:9901':'http://123.189.36.186:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 速度较好500-800 多辽宁省台
+          '223.151.49.74:59901':'http://223.151.49.74:59901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',# 速度较好600-1000以上且稳定 卫视台少，多湖南省台
+          '223.159.8.218:8099':'http://223.159.8.218:8099/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', #速度较好400-800 卫视台少，多湖南省台
+          '58.48.37.158:1111':'http://58.48.37.158:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # # 速度较好500-800 但播放时有卡顿很不稳定 放弃
+          '58.51.111.46:1111':'http://58.51.111.46:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 速度较好500-800
+          '60.208.104.234:352':'http://60.208.104.234:352/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', # 速度较好500-800
+          '58.245.97.28:9901':'http://58.245.97.28:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', #速度好1000以上且稳定
+          '58.220.219.14:9901':'http://58.220.219.14:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度差 100-300k 
+          '223.241.247.214:85':'http://223.241.247.214:85/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度较好400-800
+          #'222.134.245.16:9901':'http://222.134.245.16:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=', # 没有结果
+          '202.100.46.58:9901':'http://202.100.46.58:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度好1000以上且稳定
+          #'125.107.96.172:9901':'http://125.107.96.172:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 没有结果
+          '111.9.163.109:9901':'http://111.9.163.109:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度一般 300-500k 
+          '110.189.102.15:9901':'http://110.189.102.15:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度较快 1000K以上
+          
+          #'111.225.112.74:808':'http://111.225.112.74:808/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 没有结果
+          #'1.180.2.93:9901':'http://1.180.2.93:9901/tsfile/live/{}_1.m3u8',
+          '123.166.61.70:8003':'http://123.166.61.70:8003/hls/{}/index.m3u8', # 速度变化大 300-2000k 大部分在500K
+          '101.27.36.164:2888':'http://101.27.36.164:2888/hls/{}/index.m3u8', # 速度差 200-300K
+          '112.123.206.32:808':'http://112.123.206.32:808/hls/{}/index.m3u8', #速度较好 600-1000k
+          '175.31.21.146:4480':'http://175.31.21.146:4480/hls/{}/index.m3u8', #速度差 100-300k 
+          '42.48.17.204:808':'http://42.48.17.204:808/hls/{}/index.m3u8', #速度较好 300-1000K 波动大 平均600
+          '61.138.54.155:2233':'http://61.138.54.155:2233/hls/{}/index.m3u8', #速度一般 300-500k 
+          '219.147.200.9:18080':'http://219.147.200.9:18080/newlive/live/hls/{}/live.m3u8' #速度差 100-300k 
+         
+          # 地址 范围太宽
+          # http://124.205.11.239:91/live/SDWShd-8M/live.m3u8$饭太硬_TV 山东卫视
+          # http://124.205.11.239:91/live/SZWShd-8M/live.m3u8$饭太硬_TV 深圳卫视
+         
+          # http://221.0.78.198:1681/hls/10234/index.m3u8$饭太硬_TV 江苏卫视
+          # http://106.124.91.222:9901/tsfile/live/21212_1.m3u8$饭太硬_TV 新疆卫视
+          
           }
     oldList=[]
     finishGroups=[]
@@ -562,12 +589,13 @@ def creatTestTxt(sourcelist=None,add=1):
     for key,value in sourcelist.items():
         if key not in finishGroups:
           items=[]
-          maxCount=2000
+          maxCount=200
           for i in range(1,maxCount):
               item=Item()
               item.groups=key
               item.title=str(i)
-              code=format(i,'04d')
+              #code=format(i,'04d')
+              code=str(i)
               item.url=value.format(code)+'$'+key
               items.append(item)
           if items:
@@ -583,16 +611,33 @@ def creatTestTxt(sourcelist=None,add=1):
         else:
             print(f'{key} 已经测试过！！！')
     
+    
+def creatTestTxt():
+    filename_testResult_json='test1result.json'
+    filename_test_txt='text1.txt'
+    
+    
+    with open('titleTranslate.json','r',encoding='utf-8') as f:
+        titleTranslate=json.load(f)
     # 根据 json 文件 生成可用的txt
     with open(filename_testResult_json,'r',encoding='utf-8') as f:
       df = pd.DataFrame(json.load(f))
+      groups=df['groups'].unique()
+      #print(groups)
       with open(filename_test_txt,'w',encoding='utf-8') as f:   
-          for key,value in sourcelist.items():
-              filter=df[df['groups']==key]
-              print(key+',#genre#',file=f)
+          for group in groups:
+              filter=df[df['groups']==group]
+              titles={}
+              print(group+',#genre#',file=f)
               for index, row in filter.iterrows():
                   print(row['title']+','+row['url'],file=f)
-
+                  title={row['title']:""}
+                  titles.update(title)
+              if group not in titleTranslate.keys():
+                titleTranslate[group]=titles
+              print('',file=f)
+    with open('titleTranslate.json','w',encoding='utf-8') as f:
+        json.dump(titleTranslate,f,ensure_ascii=False)
           
 
         
@@ -604,4 +649,5 @@ if __name__ == '__main__':
     #testSource("https://cors.isteed.cc/https://raw.githubusercontent.com/n3rddd/CTVLive/main/live.txt","雷蒙影视",800,720)
     #alayRecords()
     #alayResult('test1result.json')
-    creatTestTxt(add=0)
+    creatTestTxt()
+    #creatTestJson()
