@@ -28,7 +28,7 @@ class Item:
         self.speed = -1
         self.width = 0
         self.height = 0
-        
+        self.source=''
 
     def __json__(self):
         return {'extinf': self.extinf, 'url': self.url, 
@@ -52,7 +52,7 @@ class Downloader:
         self.endTime = None
         self.videoInfo=None
         self.testTime=0
-
+        
     def getSpeed(self):
         if self.endTime and self.recive != -1:
             return self.recive / (self.endTime - self.startTime)//1000
@@ -92,7 +92,8 @@ class Setting:
     
     def getLivesCount(self):
         return self.setting.get('livesCount')
-    
+    def getLivesModel(self):
+        return self.setting.get('livesModel')
     
 def addtestRecord(item):
     testRecords=[]
@@ -107,6 +108,14 @@ def writeTestInfo(content,hasBlank=1):
         print(content,file=f)
         if hasBlank:
             print('',file=f)
+
+# 判断列表中的值是否包含在指定的字符串中
+def isIn(list,str):
+    for word in list:
+        if word in str:
+            return True
+    return False
+
 # 根据配置地址生成待检测列表     
 def getAllM3UItems(dir,name):
     items = []
@@ -123,14 +132,6 @@ def getAllM3UItems(dir,name):
     else:
         print('not net address!!!')
     return items
-
-# 判断列表中的值是否包含在指定的字符串中
-def isIn(list,str):
-    for word in list:
-        if word in str:
-            return True
-    return False
-
 
 # 读取 Txt 配置文件生成待测试列表
 def readText(resp,name):
@@ -149,7 +150,7 @@ def readText(resp,name):
               urlStr=line.split(',')[1]
               if urlStr:
                   url=urlStr.split('$')[0]
-                  url=url+'$'+name
+                  item.source=name
                   item.groups=groups
                   item.title=title
                   item.url=url
@@ -176,7 +177,7 @@ def readM3u(resp,name):
               item.groups=groups
               item.title=title
               url=line.split('$')[0]
-              url=url+'$'+name
+              item.source=name
               item.url=url
               items.append(item)
             extinf = ''
@@ -315,12 +316,10 @@ def downloadTester(downloader: Downloader,minSpeed=Setting().getDownloadMinSpeed
     #os.remove(filename)
 
 # 开始检测单一地址可用数量 
-def start(path='https://iptv.b2og.com/j_iptv.m3u',name=None,minSpeed=None,minHeight=None):
+def start(items,minSpeed=None,minHeight=None):
     
     filterItem=[]
-    #path = os.getcwd()
-    items = getAllM3UItems(path,name)
-    print('发现项: %d' % len(items))
+    print(f'共 {len(items)} 项需要检测！')
     if len(items):
       # 循环测速 加入多线程
       with ThreadPoolExecutor(max_workers=6) as executor:
@@ -333,13 +332,13 @@ finishedUrls=set()
 def test(item,minSpeed=None,minHeight=None):
     # print('params speed :',minSpeed)
     # print('params height:',minHeight)
-    name=item.url.split('$')[1]
+    name=item.source
     print(f'测试：源：{name} {item.groups}__{item.title}')
     if not minHeight:
         minHeight=Setting().getVideoMinHeight()
     if not minSpeed:
         minSpeed=Setting().getDownloadMinSpeed()
-    url = item.url.split('$')[0]
+    url = item.url
     if url not in finishedUrls:
       finishedUrls.add(url)
       stream_urls = []
@@ -363,6 +362,7 @@ def test(item,minSpeed=None,minHeight=None):
           item.speed = speed
           print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
           if item.speed > minSpeed and item.height>=minHeight:
+              item.url=item.url+"$"+item.source
               return item
             #print(item.__json__())
       else:
@@ -372,70 +372,74 @@ def test(item,minSpeed=None,minHeight=None):
     return None
 
 # 符合测试结果的项目存入 result.json  item 为 Item 对象列表
-def saveTojson(item,file='result.json'):
-    print('当前总共地址数：',len(item))
+def saveTojson(items,file='result.json'):
+    print('当前总共地址数：',len(items))
     try:
         # 包含测试结果，存入json
         with open(file, 'w', encoding='utf-8') as f:
-            json.dump(item, f, cls=ItemJSONEncoder,ensure_ascii=False)
+            json.dump(items, f, cls=ItemJSONEncoder,ensure_ascii=False)
+        # 删除相同地址
+        with open(file,'r',encoding='utf-8') as f:
+            result=json.load(f)
+            df=pd.DataFrame(result)
+            df.drop_duplicates(subset='url')
+
+        with open(file, 'w', encoding='utf-8') as f:
+            json.dump(df.to_dict(), f, cls=ItemJSONEncoder,ensure_ascii=False) 
     except BaseException as e:
         print('保存json失败 %s' % e)
 
 #
-#   根据 result.json 生成 lives.json
+#   根据 result.json 生成 lives configs文件
 #
-def creatLiveJSON(testResult='result.json',livesJson='lives.json'):
+def creatLiveConfig(testResult='result.json',liveTxt='lives.txt',setcount=Setting().getLivesCount(),func=None):
+    df=None
+    lives={}
     with open(testResult, 'r', encoding='utf-8') as f:
         data=json.load(f)
+        if callable(func):
+            data=func(data)
+        else:
+            print(' 没有函数 ！')
         df=pd.DataFrame(data)
-        if df.empty:
-          return False
-        lives={}
-        with open(livesJson, 'r', encoding='utf-8') as f1:
-            lives=json.load(f1)
-            for groups,value in lives.items():
-                for channle,urls in value.items():
-                    name=channle.split(' ')[0] # 针对cctv
-                    #print('select :',name)
-                    if name.startswith('CCTV'):
-                      end=name[5:]
-                      if '5+' in end:
-                          end='5\\+'
-                      #print('str end :',end)
-                      re_df=df[df['title'].str.contains(f'CCTV[-_]?{end}$')]
-                      print(f'{channle} 的行数为{len(re_df)}')
-                    else:
-                        re_df=df[df['title'].str.contains(name)]
-                    #print('select result:',re_df)
-                    if not re_df.empty:
-                        # ascending默认升序 ignore_index 保持原始索引顺序
-                        #print('select result:',re_df)
-                        df_sorted = re_df.sort_values(by='speed', ascending=False,ignore_index=True)
-                        df_sorted=df_sorted.drop_duplicates(subset='url', keep='first')
-                        adds=df_sorted['url'].to_list() 
-                        # print('urls count ：',len(urls))
-                        # print('new  count ：',len(adds))
-                        lives[groups][channle]=adds
-                        # print('CCTV1 count',len(lives[groups][channle]))
-                        #print(urls)
-                    else:
-                        print(f'{channle} 没有地址！！！')
-            
-        if lives:
-            with open(livesJson, 'w', encoding='utf-8') as f1:
-              json.dump(lives,f1,ensure_ascii=False)
-              return True
         
-            
-#
-#   根据lives.json 生成lives.txt 节目表
-#
-def creatLivesTXT(lives=None,file='lives.json',setcount=Setting().getLivesCount()):
-    if not lives:
-      with open('lives.json', 'r', encoding='utf-8') as f1:
-            lives=json.load(f1)
-    with open('lives.txt', 'w', encoding='utf-8') as f2:
-      for groups,channels in lives.items():
+    if not df.empty:    
+      livesModel=Setting().getLivesModel()
+      for groups,value in livesModel.items():
+          currentGroups={}
+          for channel in value:
+              name=channel.split(' ')[0] # 针对cctv
+              #print('select :',name)
+              if name.startswith('CCTV'):
+                end=name[5:]
+                if '5+' in end:
+                    end='5\\+'
+                #print('str end :',end)
+                re_df=df[df['title'].str.contains(f'CCTV[-_]?{end}$')]
+                print(f'{channel} 的行数为{len(re_df)}')
+              else:
+                  re_df=df[df['title'].str.contains(name)]
+              #print('select result:',re_df)
+              if not re_df.empty:
+                  # ascending默认升序 ignore_index 保持原始索引顺序
+                  #print('select result:',re_df)
+                  df_sorted = re_df.sort_values(by='speed', ascending=False,ignore_index=True)
+                  df_sorted=df_sorted.drop_duplicates(subset='url', keep='first')
+                  adds=df_sorted['url'].to_list() 
+                  currentGroups[channel]=adds
+                  
+                  #print(f'current {groups}',currentGroups)
+                  #print(urls)
+              else:
+                  print(f'{channel} 没有地址！！！')
+          if  any(currentGroups):
+              # any 只要有一个不为空 返回True
+              # all 全不为空 返回True
+              lives[groups]=currentGroups
+      # 生成并写入livesconfig         
+      #print('livesConfig:',lives)  
+      with open(liveTxt, 'w', encoding='utf-8') as f2:    
+        for groups,channels in lives.items():
           if any(value for value in channels.values()):
             print(groups+',#genre#',file=f2)
             for channel,urls in channels.items():
@@ -448,6 +452,8 @@ def creatLivesTXT(lives=None,file='lives.json',setcount=Setting().getLivesCount(
                     if icount==count:
                         break
             print('',file=f2)
+        
+            
 
 # 从myTvbox获取 lives列表   并加本地列表      
 def getLiveSource():
@@ -480,7 +486,8 @@ def main(url=None,name=None,minSpeed=None,minHeight=None):
             continue
         print('开始测速：',value)
         sourceBalck.update({key:value})
-        item,count=start(value,key,minSpeed=minSpeed,minHeight=minHeight)
+        preItems=getAllM3UItems(value,key)
+        item,count=start(preItems,minSpeed=minSpeed,minHeight=minHeight)
         if item:
           items.extend(item)
           writeTestInfo(f"{num}.\t{key}: 共{count}个地址，获取可用数量 {len(item)}",0)
@@ -498,14 +505,12 @@ def main(url=None,name=None,minSpeed=None,minHeight=None):
         addtestRecord(testRecord)
     writeTestInfo(f"========== 检测总共用时: {(time.time()-startTime)//60} 分钟 =============")
     if items:
-      if url:
-          with open('result.json', 'r', encoding='utf-8') as f:
-              oldList=json.load(f)
-              items.extend(oldList)
-              #print('after items:',len(items))
+      with open('result.json', 'r', encoding='utf-8') as f:
+          oldList=json.load(f)
+          items.extend(oldList)
+            #print('after items:',len(items))
       saveTojson(items)
-      if creatLiveJSON():
-        creatLivesTXT()
+      creatLiveConfig()
 
 
 def reTest():
@@ -536,7 +541,7 @@ def alayResult(path='result.json'):
             f.write(df_filter.to_string())
         #print(df_sorted)
 
-def creatTestJson(sourcelist=None,add=1):
+def creatIptvTestList(sourcelist=None):
     iptvTestResult='iptvTestResult.json'
     if not sourcelist:
       sourcelist={
@@ -548,22 +553,22 @@ def creatTestJson(sourcelist=None,add=1):
           '223.151.49.74:59901':'http://223.151.49.74:59901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0',# 速度较好600-1000以上且稳定 卫视台少，多湖南省台
           '223.159.8.218:8099':'http://223.159.8.218:8099/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', #速度较好400-800 卫视台少，多湖南省台
           '58.48.37.158:1111':'http://58.48.37.158:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # # 速度较好500-800 但播放时有卡顿很不稳定 放弃
-          '58.51.111.46:1111':'http://58.51.111.46:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 速度较好500-800
-          '60.208.104.234:352':'http://60.208.104.234:352/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', # 速度较好500-800
-          '58.245.97.28:9901':'http://58.245.97.28:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', #速度好1000以上且稳定
-          '58.220.219.14:9901':'http://58.220.219.14:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度差 100-300k 
-          '223.241.247.214:85':'http://223.241.247.214:85/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度较好400-800
+          '58.51.111.46:1111':'http://58.51.111.46:1111/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 速度较好500-800 播放畅 有部分湖北省台
+          '60.208.104.234:352':'http://60.208.104.234:352/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', # 速度较好500-800 播放顺 只有央卫视
+          '58.245.97.28:9901':'http://58.245.97.28:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=0&authid=0', #速度好1000以上且稳定 播放顺 有小量吉林省台
+          '58.220.219.14:9901':'http://58.220.219.14:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度差 100-300k 播放卡 只有央卫视
+          '223.241.247.214:85':'http://223.241.247.214:85/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度较好400-800 播放顺
           #'222.134.245.16:9901':'http://222.134.245.16:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=', # 没有结果
-          '202.100.46.58:9901':'http://202.100.46.58:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度好1000以上且稳定
+          '202.100.46.58:9901':'http://202.100.46.58:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度好1000以上且稳定 卫视播放稍有卡
           #'125.107.96.172:9901':'http://125.107.96.172:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 没有结果
-          '111.9.163.109:9901':'http://111.9.163.109:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度一般 300-500k 
-          '110.189.102.15:9901':'http://110.189.102.15:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度较快 1000K以上
+          '111.9.163.109:9901':'http://111.9.163.109:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度一般 300-500k  台很少 放弃
+          '110.189.102.15:9901':'http://110.189.102.15:9901/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', #速度较快 1000K以上 有少量四川省台
           
           #'111.225.112.74:808':'http://111.225.112.74:808/tsfile/live/{}_1.m3u8?key=txiptv&playlive=1&authid=0', # 没有结果
           #'1.180.2.93:9901':'http://1.180.2.93:9901/tsfile/live/{}_1.m3u8',
           '123.166.61.70:8003':'http://123.166.61.70:8003/hls/{}/index.m3u8', # 速度变化大 300-2000k 大部分在500K
           '101.27.36.164:2888':'http://101.27.36.164:2888/hls/{}/index.m3u8', # 速度差 200-300K
-          '112.123.206.32:808':'http://112.123.206.32:808/hls/{}/index.m3u8', #速度较好 600-1000k
+          '112.123.206.32:808':'http://112.123.206.32:808/hls/{}/index.m3u8', #速度较好 600-1000k 画面不正常
           '175.31.21.146:4480':'http://175.31.21.146:4480/hls/{}/index.m3u8', #速度差 100-300k 
           '42.48.17.204:808':'http://42.48.17.204:808/hls/{}/index.m3u8', #速度较好 300-1000K 波动大 平均600
           '61.138.54.155:2233':'http://61.138.54.155:2233/hls/{}/index.m3u8', #速度一般 300-500k 
@@ -579,15 +584,14 @@ def creatTestJson(sourcelist=None,add=1):
           }
     oldList=[]
     finishGroups=[]
-    if add:
-      with open(iptvTestResult, 'r', encoding='utf-8') as f:
-          oldList=json.load(f)
-          finishGroups=pd.DataFrame(oldList)['groups'].to_list()
     
+    with open(iptvTestResult, 'r', encoding='utf-8') as f:
+        oldList=json.load(f)
+        finishGroups=pd.DataFrame(oldList)['groups'].to_list()
+    items=[]
     # 生成测试列表 并测试 返回测试结果并添加到 test1result.json 文件中
     for key,value in sourcelist.items():
         if key not in finishGroups:
-          items=[]
           maxCount=200
           for i in range(1,maxCount):
               item=Item()
@@ -595,75 +599,40 @@ def creatTestJson(sourcelist=None,add=1):
               item.title=str(i)
               #code=format(i,'04d')
               code=str(i)
-              item.url=value.format(code)+'$'+key
+              item.url=value.format(code)
+              item.source=key
               items.append(item)
-          if items:
-          # 循环测速 加入多线程
-            with ThreadPoolExecutor(max_workers=6) as executor:
-              filterItem=list(executor.map(test,items,len(items)*[10],len(items)*[500]))
-              filterItem=[result for result in filterItem if result is not None]
-          else:
-              print('没有可测项目')
-          if filterItem:
-              oldList.extend(filterItem)
-              saveTojson(oldList,iptvTestResult)
         else:
             print(f'{key} 已经测试过！！！')
-    
-    
-def creatTestTxt():
-    iptvTestResult='iptvTestResult.json'
-    filename_test_txt='iptvTest.txt'
-    
-    
-    with open('titleTranslate.json','r',encoding='utf-8') as f:
-        titleTranslate=json.load(f)
-    # 根据 json 文件 生成可用的txt
-    with open(iptvTestResult,'r',encoding='utf-8') as f:
-      df = pd.DataFrame(json.load(f))
-      groups=df['groups'].unique()
-      #print(groups)
-      with open(filename_test_txt,'w',encoding='utf-8') as f:   
-          for group in groups:
-              filter=df[df['groups']==group]
-              titles={}
-              print(group+',#genre#',file=f)
-              for index, row in filter.iterrows():
-                  print(row['title']+','+row['url'],file=f)
-                  title={row['title']:""}
-                  titles.update(title)
-              if group not in titleTranslate.keys():
-                titleTranslate[group]=titles
-              print('',file=f)
-    with open('titleTranslate.json','w',encoding='utf-8') as f:
-        json.dump(titleTranslate,f,ensure_ascii=False)
-          
-def translateTilte():
+    return items
+def translateTilte(items):
     with open('titleTranslate.json','r',encoding='utf-8') as f:
         titles=json.load(f)
-    with open('ipTvTestResult.json','r',encoding='utf-8') as f:
-        result=json.load(f)
-        for item in result:
+        for item in items:
             # 获取需要查询的组及标题
             groups=item.get('groups')
             oldTitle=item.get('title')
             t_groups=titles.get(groups)
+            #print(f'查询 {groups} : {oldTitle}')
             if t_groups:
                 trueName=t_groups.get(oldTitle)
                 if trueName:
                     item['title']=trueName
                 else:
-                    item['缺省']
-    return result
+                    item['title']='缺省'
+    return items
         
-       
+def iptvTest():
+    items=creatIptvTestList()
+    results,count=start(items,20,500)
+    creatLiveConfig('iptvTestResult.json','iptvConfig.txt')
+
 if __name__ == '__main__':
     
     #main()
-    # creatLiveJSON()
-    # creatLivesTXT()
-    #testSource("https://cors.isteed.cc/https://raw.githubusercontent.com/n3rddd/CTVLive/main/live.txt","雷蒙影视",800,720)
+    
     #alayRecords()
     #alayResult('test1result.json')
-    creatTestTxt()
-    #creatTestJson()
+    creatLiveConfig('iptvTestResult.json','iptvConfig.txt',func=translateTilte)
+    
+   
