@@ -4,8 +4,8 @@ import scrapy
 import json
 
 
-# scrapy.autoScrapy(minSpeed=100,minHeight=720,testTime=10)
-# iptv.autoipTvTest(minSpeed=100,minHeight=720,testTime=10)
+#scrapy.autoScrapy()
+#iptv.autoipTvTest()
 # 合并文件
 result=[]
 with open('scrapyResult.json','r',encoding='utf-8') as f:
@@ -20,7 +20,7 @@ if result:
   print('去重前数量：',len(result))
   result=test.dropDuplicates(result,'url',test.splitFilter)
   print('去重后数量：',len(result))
-  test.creatLiveConfig(result)
+  test.creatLiveConfig(result,setcount=20)
 else:
   print('没有检测结果！')
 

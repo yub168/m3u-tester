@@ -5,7 +5,7 @@ from m3utester import Setting,Item
 import time
 from datetime import datetime
 import re
-
+import pandas as pd
 # 从myTvbox获取 lives列表   并加本地列表      
 def getLiveSource():
     list=Setting().getSourceUrls()
@@ -140,7 +140,8 @@ def autoScrapy(list=None,minSpeed=None,minHeight=None,testTime=None):
                 }
         test.addtestRecord(testReord)
     test.writeTestInfo(f'================    共检测用时 ：{(time.time()-startTime)//60} 分钟 =========================')   
-    test.creatLiveConfig('result.json',liveConfigTxt='scrapyConfig.txt')
+    test.creatLiveConfig('scrapyResult.json',liveConfigTxt='scrapyConfig.txt')
 
 if __name__ == '__main__':
-    autoScrapy({'欧歌_app':'https://tv.nxog.top/m/tv/'},minSpeed=300,testTime=10)
+    #autoScrapy({"fmbox": "http://47.99.102.252/live.txt"})
+    test.creatLiveConfig('scrapyResult.json',liveConfigTxt='scrapyConfig.txt')

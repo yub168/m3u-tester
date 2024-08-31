@@ -194,8 +194,8 @@ def dropDuplicates(dicts,subkey,cls=None,keep="last"):
             #print('result dicts:',result_dict)
         result=result_dict.values()
     else:
-        df=pd.DataFrame(dict)
-        result_df=df.drop_duplicates(subset=subkey)
+        df=pd.DataFrame(dicts)
+        result_df=df.drop_duplicates(subset=subkey,keep=keep,inplace=False)
         result=result_df.to_dict(orient='records')
     return result
         
@@ -368,7 +368,7 @@ def test(item,minSpeed=None,minHeight=None,testTime=None):
           item.speed = speed
           print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
           if item.speed > minSpeed and item.height>=minHeight:
-              item.url=item.url+"$"+item.source
+              item.url=item.url
               return item
             #print(item.__json__())
       else:
@@ -393,7 +393,8 @@ def addTolivePool(items,file='livePool.json',add=1):
                 result=dictList
           else:
               result=dictList
-          #print(' addToLivePool：',result)
+          # 加个去重复功能
+          result=dropDuplicates(result,'url')
           with open(file, 'w', encoding='utf-8') as f:
               json.dump(result, f, ensure_ascii=False) 
       
@@ -407,6 +408,8 @@ def translateTilte(items):
     '''
       items : 为dict列表
     '''
+    # 找不到编码对照表时 用下面这个
+    default_group='101.229.227.246:7777'
     if items:
       with open('titleTranslate.json','r',encoding='utf-8') as f:
           titles=json.load(f)
@@ -415,11 +418,13 @@ def translateTilte(items):
               groups=item.get('groups')
               oldTitle=item.get('title')
               t_groups=titles.get(groups)
+              t_groups= t_groups if t_groups else titles.get(default_group)
               #print(f'查询 {groups} : {oldTitle}')
               if t_groups:
                   trueName=t_groups.get(oldTitle)
                   if trueName:
                       item['title']=trueName
+              
     return items
 #
 #   根据 result.json 生成 lives configs文件
@@ -434,56 +439,57 @@ def creatLiveConfig(testResult:str | list=None,liveConfigTxt='lives.txt',setcoun
         liveItems=testResult
     if liveItems:
         df=pd.DataFrame(liveItems)
-    if not df.empty:    
-      livesModel=Setting().getLivesModel()
-      for groups,value in livesModel.items():
-          currentGroups={}
-          for channel in value:
-              name=channel.split(' ')[0] # 针对cctv
-              #print('select :',name)
-              if name.startswith('CCTV'):
-                end=name[5:]
-                if '5+' in end:
-                    end='5\\+'
-                #print('str end :',end)
-                re_df=df[df['title'].str.contains(f'CCTV[-_]?{end}$')]          
-              else:
-                  re_df=df[df['title'].str.contains(name)]
-              #print('select result:',re_df)
-              if not re_df.empty:
-                  print(f'{channel} 的行数为 {len(re_df)}')
-                  # ascending默认升序 ignore_index 保持原始索引顺序
+        if not df.empty:    
+          livesModel=Setting().getLivesModel()
+          for groups,value in livesModel.items():
+              currentGroups={}
+              for channel in value:
+                  name=channel.split(' ')[0] # 针对cctv
+                  #print('select :',name)
+                  if name.startswith('CCTV'):
+                    end=name[5:]
+                    if '5+' in end:
+                        end='5\\+'
+                    #print('str end :',end)
+                    re_df=df[df['title'].str.contains(f'CCTV[-_]?{end}$')]          
+                  else:
+                      re_df=df[df['title'].str.contains(name)]
                   #print('select result:',re_df)
-                  df_sorted = re_df.sort_values(by='speed', ascending=False,ignore_index=True)
-                  df_sorted.drop_duplicates(subset='url', keep='first',inplace=True)
-                  adds=df_sorted['url'].to_list() 
-                  currentGroups[channel]=adds
-                  
-                  #print(f'current {groups}',currentGroups)
-                  #print(urls)
-              else:
-                  print(f'{channel} 没有地址！！！')
-          if  any(currentGroups):
-              # any 只要有一个不为空 返回True
-              # all 全不为空 返回True
-              lives[groups]=currentGroups
-      # 生成并写入livesconfig         
-      #print('livesConfig:',lives)  
-      with open(liveConfigTxt, 'w', encoding='utf-8') as f2:    
-        for groups,channels in lives.items():
-          if any(value for value in channels.values()):
-            print(groups+',#genre#',file=f2)
-            for channel,urls in channels.items():
-                if urls:
-                  count=len(urls) if len(urls)<setcount else setcount
-                  icount=0
-                  for url in urls:
-                    print(channel+','+url,file=f2)
-                    icount=icount+1
-                    if icount==count:
-                        break
-            print('',file=f2)
-        
+                  if not re_df.empty:
+                      print(f'{channel} 的行数为 {len(re_df)}')
+                      # ascending默认升序 ignore_index 保持原始索引顺序
+                      #print('select result:',re_df)
+                      df_sorted = re_df.sort_values(by='speed', ascending=False,ignore_index=True)
+                      df_sorted.drop_duplicates(subset='url', keep='first',inplace=True)
+                      adds=(df_sorted['url']+'$'+df_sorted['source']).to_list() 
+                      currentGroups[channel]=adds
+                      
+                      #print(f'current {groups}',currentGroups)
+                      #print(urls)
+                  else:
+                      print(f'{channel} 没有地址！！！')
+              if  any(currentGroups):
+                  # any 只要有一个不为空 返回True
+                  # all 全不为空 返回True
+                  lives[groups]=currentGroups
+          # 生成并写入livesconfig         
+          #print('livesConfig:',lives)  
+          with open(liveConfigTxt, 'w', encoding='utf-8') as f2:    
+            for groups,channels in lives.items():
+              if any(value for value in channels.values()):
+                print(groups+',#genre#',file=f2)
+                for channel,urls in channels.items():
+                    if urls:
+                      count=len(urls) if len(urls)<setcount else setcount
+                      icount=0
+                      for url in urls:
+                        print(channel+','+url,file=f2)
+                        icount=icount+1
+                        if icount==count:
+                            break
+                print('',file=f2)
+    else:
+        print('没有检测结果！')   
             
 def reTest():
     pattern='group-title=\"(\\w+)\"'
@@ -500,45 +506,45 @@ def alayRecords():
         df_sorted = df.sort_values(by=['name', 'usefull'],ignore_index=True)  
         print(df_sorted)
 
-def alayResult(path='result.json'):
+def alayResult(path='result.json',sortKey=None):
     with open(path,"r",encoding='utf-8') as f:
         dict = json.load(f)
         df = pd.DataFrame(dict)
-        df_sorted = df.sort_values(by='url',ignore_index=True)
-        df_filter=df_sorted[['url','title','speed']]
+        df_sorted = df.sort_values(by=sortKey,ignore_index=True)
+        df_filter=df_sorted[['url','title','speed','source']]
         df_filter=df_filter.style.set_properties(**{'text-align': 'justify'})
         with open('alayResult.json','w',encoding='utf-8') as f:
             f.write(df_filter.to_string())
         #print(df_sorted)
 
 # 用于对 项目池中的项目重测更新速度数据
-def updatePoolItems(file='result.json',update=1):
+def updatePoolItems(file='result.json',minSpeed=None,minHeight=None,testTime=None,update=1):
     '''
     ### Params
       file : 要检测的项目文件
       update : 是否把检测结果更新到文件
     '''
-    #try:
-    with open(file,'r',encoding='utf-8') as f:
-        items=json.load(f)
-        if items:
-          items=dropDuplicates(items,'url',splitFilter,keep='last')
-          items=DictsToItems(items)
-          #print(items)
-          result=start(items,minSpeed=300,minHeight=720,testTime=10)
-          print(f'共检测 {len(items)} 个，有效数量 {len(result)} 个。')
-    if update and result:
-      with open(file,'w',encoding='utf-8') as f:
-          json.dump(result,f,cls=ItemJSONEncoder,ensure_ascii=False)
-    # except BaseException as e:
-    #     print('检测异常：',e)
+    try:
+      with open(file,'r',encoding='utf-8') as f:
+          items=json.load(f)
+          if items:
+            items=dropDuplicates(items,'url',splitFilter,keep='last')
+            items=DictsToItems(items)
+            #print(items)
+            result=start(items,minSpeed,minHeight,testTime)
+            print(f'共检测 {len(items)} 个，有效数量 {len(result)} 个。')
+      if update and result:
+        with open(file,'w',encoding='utf-8') as f:
+            json.dump(result,f,ensure_ascii=False)
+    except BaseException as e:
+        print('检测异常：',e)
 
 
 if __name__ == '__main__':
     
     #main()
     #alayRecords()
-    #alayResult('test1result.json')
+    alayResult('scrapyResult.json',['source'])
     #creatLiveConfig('iptvTestResult.json','iptvConfig.txt',func=translateTilte)
-    updatePoolItems('iptvTestResult.json',0)
+    #updatePoolItems('iptvTestResult.json',0)
     
