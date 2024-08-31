@@ -4,6 +4,7 @@
   },
   "minDownloadSpeed": 800,
   "minVideoHeight": 720,
+  "testTime": 5,
   "groupsFilter": [
     "央视",
     "卫视",
