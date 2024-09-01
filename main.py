@@ -9,7 +9,7 @@ import json
 #iptv.autoipTvTest()
 
 # 每天更新live池中的数据，生成最新配置文件
-test.updatePoolItems('scrapyConfig.json')
+test.updatePoolItems('scrapyResult.json')
 test.updatePoolItems('iptvTestResult.json')
 result=[]
 # 合并文件

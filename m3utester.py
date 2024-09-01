@@ -477,7 +477,7 @@ def creatLiveConfig(testResult:str | list=None,liveConfigTxt='lives.txt',setcoun
           with open(liveConfigTxt, 'w', encoding='utf-8') as f2:    
             for groups,channels in lives.items():
               if any(value for value in channels.values()):
-                print(f'// 更新于：{time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())}')
+                print(f'// 更新于：{time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())}',file=f2)
                 print(groups+',#genre#',file=f2)
                 for channel,urls in channels.items():
                     if urls:
