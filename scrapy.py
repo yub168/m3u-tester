@@ -143,5 +143,5 @@ def autoScrapy(list=None,minSpeed=None,minHeight=None,testTime=None):
     test.creatLiveConfig('scrapyResult.json',liveConfigTxt='scrapyConfig.txt')
 
 if __name__ == '__main__':
-    #autoScrapy({"fmbox": "http://47.99.102.252/live.txt"})
-    test.creatLiveConfig('scrapyResult.json',liveConfigTxt='scrapyConfig.txt')
+    autoScrapy()
+    #test.creatLiveConfig('scrapyResult.json',liveConfigTxt='scrapyConfig.txt')

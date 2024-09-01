@@ -3,11 +3,16 @@ import iptvTest as iptv
 import scrapy 
 import json
 
-
+# 每星期测一次 直接运行scrapy.py
 #scrapy.autoScrapy()
+# 地址固定 不用常测
 #iptv.autoipTvTest()
-# 合并文件
+
+# 每天更新live池中的数据，生成最新配置文件
+test.updatePoolItems('scrapyConfig.json')
+test.updatePoolItems('iptvTestResult.json')
 result=[]
+# 合并文件
 with open('scrapyResult.json','r',encoding='utf-8') as f:
   result1=json.load(f)
   if result1:

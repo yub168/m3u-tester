@@ -477,6 +477,7 @@ def creatLiveConfig(testResult:str | list=None,liveConfigTxt='lives.txt',setcoun
           with open(liveConfigTxt, 'w', encoding='utf-8') as f2:    
             for groups,channels in lives.items():
               if any(value for value in channels.values()):
+                print(f'// 更新于：{time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())}')
                 print(groups+',#genre#',file=f2)
                 for channel,urls in channels.items():
                     if urls:
@@ -518,7 +519,7 @@ def alayResult(path='result.json',sortKey=None):
         #print(df_sorted)
 
 # 用于对 项目池中的项目重测更新速度数据
-def updatePoolItems(file='result.json',minSpeed=None,minHeight=None,testTime=None,update=1):
+def updatePoolItems(file='scrapyResult.json',minSpeed=None,minHeight=None,testTime=None,update=1):
     '''
     ### Params
       file : 要检测的项目文件
@@ -532,7 +533,7 @@ def updatePoolItems(file='result.json',minSpeed=None,minHeight=None,testTime=Non
             items=DictsToItems(items)
             #print(items)
             result=start(items,minSpeed,minHeight,testTime)
-            print(f'共检测 {len(items)} 个，有效数量 {len(result)} 个。')
+            writeTestInfo(f'{time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())} 共检测 {len(items)} 个，有效数量 {len(result)} 个。')
       if update and result:
         with open(file,'w',encoding='utf-8') as f:
             json.dump(result,f,ensure_ascii=False)

@@ -1,5 +1,4 @@
 央视频道,#genre#
-CCTV-1 综合,http://l.cztvcloud.com/channels/lantian/SXshangyu1/720p.m3u8$饭太硬_TV
 CCTV-1 综合,http://112.123.206.32:808/hls/1/index.m3u8$饭太硬_TV
 CCTV-1 综合,http://[2409:8087:5e00:24::1e]:6060/200000001898/460000089800010144/1.m3u8$饭太硬_TV
 CCTV-1 综合,http://61.163.181.78:9901/tsfile/live/0001_1.m3u8$饭太硬_TV
