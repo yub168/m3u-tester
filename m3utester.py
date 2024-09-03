@@ -155,7 +155,7 @@ def  DictsToItems(dicts):
           result=[]
           for dict in dicts:
             result.append(Item(**dict))
-          return alayResult
+          return result
         except Exception as e:
             print('Dict列表转Item列表错误：',e)
     return None
@@ -528,12 +528,14 @@ def updatePoolItems(file='scrapyResult.json',minSpeed=None,minHeight=None,testTi
     try:
       with open(file,'r',encoding='utf-8') as f:
           items=json.load(f)
+          writeTestInfo(f'==================开始 {file} 检测 {time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())} =====================',0)
           if items:
+            startTime=time.time()
             items=dropDuplicates(items,'url',splitFilter,keep='last')
             items=DictsToItems(items)
             #print(items)
             result=start(items,minSpeed,minHeight,testTime)
-            writeTestInfo(f'{time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())} 共检测 {len(items)} 个，有效数量 {len(result)} 个。')
+            writeTestInfo(f' ========= {file} 共检测 {len(items)} 个，有效数量 {len(result)} 个。用时：{round((time.time()-startTime)/60,2)} 分钟 =========')
       if update and result:
         with open(file,'w',encoding='utf-8') as f:
             json.dump(result,f,ensure_ascii=False)

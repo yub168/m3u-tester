@@ -107,6 +107,7 @@ def getAllM3UItems(dir,name):
     return items
 
 def autoScrapy(list=None,minSpeed=None,minHeight=None,testTime=None):
+    test.writeTestInfo(f'============================ 开始自动抓有效lives源 {time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())}========================')
     startTime=time.time()
     list = list if list else getLiveSource()
     sourceBlackList=Setting().getSourceBlack()

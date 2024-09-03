@@ -2,13 +2,14 @@ import m3utester as test
 import iptvTest as iptv
 import scrapy 
 import json
-
+import time
 # 每星期测一次 直接运行scrapy.py
 #scrapy.autoScrapy()
 # 地址固定 不用常测
 #iptv.autoipTvTest()
 
 # 每天更新live池中的数据，生成最新配置文件
+test.writeTestInfo(f'============================ 开始livesPool自动检测 {time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())}========================',0)
 test.updatePoolItems('scrapyResult.json')
 test.updatePoolItems('iptvTestResult.json')
 result=[]

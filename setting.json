@@ -167,11 +167,7 @@
   "sourceUrls": {
     "欧歌_ipv4v6": "https://tv.nxog.top/m/tv/1/",
     "欧歌_app": "https://tv.nxog.top/m/tv/",
-    "fmbox": "http://47.99.102.252/live.txt",
     "HG": "http://api.hgyx.vip/TVBox/zb.json",
-    "fmml_ipv6": "https://iptv.b2og.com/fmml_ipv6.m3u",
-    "cymz6_lives": "https://iptv.b2og.com/cymz6_lives.m3u",
-    "y_g": "https://iptv.b2og.com/y_g.m3u",
     "j_home": "https://iptv.b2og.com/j_home.m3u"
   },
   "sourceBlack": {
