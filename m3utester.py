@@ -339,7 +339,7 @@ def test(item,minSpeed=None,minHeight=None,testTime=None):
     # print('params speed :',minSpeed)
     # print('params height:',minHeight)
     name=item.source
-    print(f'测试：{name} {item.groups}__{item.title}')
+    #print(f'测试：{name} {item.groups}__{item.title}')
     if not minHeight:
         minHeight=Setting().getVideoMinHeight()
     if not minSpeed:
@@ -366,7 +366,7 @@ def test(item,minSpeed=None,minHeight=None,testTime=None):
               item.height=videoInfo['height']
               item.width=videoInfo['width']
           item.speed = speed
-          print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
+         # print(f'\t速度：{item.speed} kb/s \t视频：{item.width} * {item.height} \t检测用时：{downloader.testTime}' )
           if item.speed > minSpeed and item.height>=minHeight:
               item.url=item.url
               return item

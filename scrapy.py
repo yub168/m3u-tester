@@ -9,7 +9,7 @@ import pandas as pd
 # 从myTvbox获取 lives列表   并加本地列表      
 def getLiveSource():
     list=Setting().getSourceUrls()
-    url="https://gitee.com/yub168/myTvbox/raw/master/liveSource.json"
+    url="https://mirror.ghproxy.com/https://github.com/yub168/myTvbox/raw/refs/heads/master/liveSource.json"
     resp=requests.get(url,headers=Setting().getHeaders())
     if resp.status_code==200:
         try:
