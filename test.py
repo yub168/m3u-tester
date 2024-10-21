@@ -66,7 +66,8 @@ def getStreamUrl(m3u8):
                     second = True
             resp.close()
     except BaseException as e:
-        print('get stream url failed! %s' % e)
+        #print('get stream url failed! %s' % e)
+        err=e
     return urls
 
 # 根据下载测试的视频字节流分析视频信息
@@ -103,13 +104,10 @@ def get_video_info(content):
                           vheight = i['coded_height']
               videoInfo["height"]=vheight
               videoInfo["width"]=vwidth
-      else:
-          print("Error: ffprobe failed to execute. Return code: {}".format(process.stderr.decode('utf-8')))  
-      #print(f"==============stop ffprobe time : {time.time()}=============")  
       return videoInfo,time.time()-startTime
     except Exception as e:
         # traceback.print_exc()
-        print('ffprobe get videoInfo error:',e)
+        #print('ffprobe get videoInfo error:',e)
         return False
 
 # 下载测试
@@ -133,7 +131,7 @@ def downloadTester(downloader: Downloader,testTime=None):
               downloader.videoInfo=videoInfo
         resp.close()
     except BaseException as e:
-        print("downloadTester got an error %s" % e)
+        #print("downloadTester got an error %s" % e)
         downloader.recive = -1
 
 # 测试项目
@@ -141,7 +139,7 @@ def test(item,testTime=None):
     # print('params speed :',minSpeed)
     # print('params height:',minHeight)
     name=item.get('source')
-    print(f'测试：{name} {item.get("groups")}__{item.get("title")}')
+    #print(f'测试：{name} {item.get("groups")}__{item.get("title")}')
     url = item.get('url')
     stream_urls = []
     if url.lower().endswith('.flv'):
@@ -164,8 +162,6 @@ def test(item,testTime=None):
             item['height']=videoInfo['height']
             item['width']=videoInfo['width']
         item['speed'] = speed
-    else:
-        print('没有获取到视频流地址！') 
     return item
 
 

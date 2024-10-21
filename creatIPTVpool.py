@@ -4,7 +4,7 @@ from setting import Setting
 import re
 import json
 import util
-
+import time
 def getLiveConfigs():
   '''
     从myTvbox liveSource和本地设置中获取lives列表
@@ -114,7 +114,7 @@ def creatIPTVPool(list):
     items = []
     finishLives=[]
     for key,value in list.items():
-        print(f'开始抓取 {key} ：{value}')
+        #print(f'开始抓取 {key} ：{value}')
         if value in finishLives:
             continue
         lives = getLives(value,key)
@@ -126,6 +126,7 @@ def creatIPTVPool(list):
         items= util.filterItems(items)
         with open('ipTVPool.json', 'w', encoding='utf-8') as f:
               json.dump(items, f, ensure_ascii=False) 
+        util.log(f'共获得 {len(items)} 个项目，更新于：{time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())}',1)
 
 def start():
     configs= getLiveConfigs()

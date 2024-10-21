@@ -91,6 +91,18 @@ def filterItems(items):
     print(f'过滤后 {len(items)} 个项目')
     return items
 
+def log(content,hasBlank=0):
+    '''
+      写入测试信息
+      ### parama
+      content ： 要写入的信息
+      hasBlank : 1 后面插入一空行
+    '''
+    with open('testInfo.txt', 'a', encoding='utf-8') as f:
+        print(content,file=f)
+        if hasBlank:
+            print('',file=f)
+
 if __name__ == '__main__':
      urls=getBlackIPpool()
      result=[]
