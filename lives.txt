@@ -1,271 +1,240 @@
-// 更新于：2024-11-03 20:30:36
+// 更新于：2024-11-04 20:32:08
 央视频道,#genre#
-CCTV-1 综合,http://120.76.248.139/live/bfgd/4200000201.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-1 综合,http://120.76.248.139/live/bfgd/4200000484.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-1 综合,http://120.76.248.139/live/bfgd/4200000489.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-1 综合,http://120.76.248.139/live/bfgd/4200000201.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-1 综合,http://120.76.248.139/live/bfgd/4200000488.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-1 综合,http://117.27.190.42:9998/tsfile/live/23232_1.m3u8?key=txiptv$PG_qingwen
-CCTV-1 综合,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226016/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-1 综合,http://117.27.190.42:9998/tsfile/live/23232_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-1 综合,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226016/index.m3u8?$PG_qingwen
 CCTV-1 综合,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226419/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-1 综合,http://58.19.38.162:9901/tsfile/live/1000_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-1 综合,http://58.19.38.162:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-1 综合,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226016/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-1 综合,http://116.117.105.198:8096/tsfile/live/0001_1.m3u8$D老魔改_内置直播
-CCTV-1 综合,http://121.24.98.154:8090/hls/9/index.m3u8$D老魔改_内置直播
-CCTV-1 综合,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226559/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-1 综合,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226559/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-1 综合,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226016/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-1 综合,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226016/index.m3u8?$PG_qingwen
 CCTV-2 财经,http://120.76.248.139/live/bfgd/4200000061.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-2 财经,http://58.19.38.162:9901/tsfile/live/1001_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-2 财经,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225588/index.m3u8$PG_qingwen
 CCTV-2 财经,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225588/index.m3u8$PG_qingwen
+CCTV-2 财经,http://58.19.38.162:9901/tsfile/live/1001_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-3 综艺,http://120.76.248.139/live/bfgd/4200000062.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-3 综艺,http://58.220.219.14:9901/tsfile/live/0003_1.m3u8$HG
-CCTV-3 综艺,http://58.220.219.14:9901/tsfile/live/0003_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
-CCTV-3 综艺,http://60.223.224.176:8888/newlive/live/hls/4/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-3 综艺,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226021/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-3 综艺,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226021/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-4 中文国际,http://120.76.248.139/live/bfgd/4200000063.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-3 综艺,http://58.19.38.162:9901/tsfile/live/1002_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-3 综艺,http://58.19.38.162:9901/tsfile/live/1002_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-3 综艺,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226021/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-3 综艺,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226021/index.m3u8?$PG_qingwen
+CCTV-3 综艺,http://58.220.219.14:9901/tsfile/live/0003_1.m3u8$HG
+CCTV-3 综艺,http://60.223.224.176:8888/newlive/live/hls/4/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-4 中文国际,http://58.19.38.162:9901/tsfile/live/1003_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-4 中文国际,http://58.19.38.162:9901/tsfile/live/1003_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-4 中文国际,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226428/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-4 中文国际,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226007/index.m3u8$王小二_综合1
-CCTV-4 中文国际,http://117.27.190.42:9998/tsfile/live/23235_1.m3u8?key=txiptv$PG_qingwen
+CCTV-4 中文国际,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226428/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-4 中文国际,http://60.223.224.176:8888/newlive/live/hls/5/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-4 中文国际,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226007/index.m3u8?$PG_qingwen
 CCTV-4 中文国际,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226007/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-4 中文国际,http://116.117.105.198:8096/tsfile/live/0004_1.m3u8$D老魔改_内置直播
-CCTV-4 中文国际,http://117.27.190.42:9998/tsfile/live/23235_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-5 体育,http://58.48.37.158:1111/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0$PG_qingwen
+CCTV-4 中文国际,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226007/index.m3u8?$PG_qingwen
 CCTV-5 体育,http://120.76.248.139/live/bfgd/4200000064.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-5 体育,http://58.19.38.162:9901/tsfile/live/1004_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-5 体育,http://58.19.38.162:9901/tsfile/live/1004_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-5 体育,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226019/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-5 体育,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226019/index.m3u8?$PG_qingwen
-CCTV-5 体育,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226469/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-5 体育,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226019/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-5+ 体育赛事,http://120.76.248.139/live/bfgd/4200000246.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-5+ 体育赛事,http://58.19.38.162:9901/tsfile/live/1014_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-5+ 体育赛事,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225603/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-5+ 体育赛事,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225603/index.m3u8?$PG_qingwen
-CCTV-5+ 体育赛事,http://60.223.224.176:8888/newlive/live/hls/7/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-6 电影,http://120.76.248.139/live/bfgd/4200000065.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-6 电影,http://58.19.38.162:9901/tsfile/live/1005_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-6 电影,http://58.220.219.14:9901/tsfile/live/0006_1.m3u8$HG
-CCTV-6 电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226010/index.m3u8?$PG_qingwen
-CCTV-6 电影,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226010/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-6 电影,http://117.27.190.42:9998/tsfile/live/23237_1.m3u8?key=txiptv$PG_qingwen
 CCTV-6 电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226010/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-6 电影,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226010/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-6 电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226010/index.m3u8?$PG_qingwen
 CCTV-7 国防军事,http://120.76.248.139/live/bfgd/4200000127.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-7 国防军事,http://60.223.224.176:8888/newlive/live/hls/9/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-7 国防军事,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225733/index.m3u8?$PG_qingwen
+CCTV-7 国防军事,http://58.19.38.162:9901/tsfile/live/1006_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-7 国防军事,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225733/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-7 国防军事,http://117.27.190.42:9998/tsfile/live/23238_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-7 国防军事,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225733/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-7 国防军事,http://117.27.190.42:9998/tsfile/live/23238_1.m3u8?key=txiptv$PG_qingwen
+CCTV-7 国防军事,http://60.223.224.176:8888/newlive/live/hls/9/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-8 电视剧,http://120.76.248.139/live/bfgd/4200000066.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-8 电视剧,http://218.3.138.25:1111/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
+CCTV-8 电视剧,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226008/index.m3u8?$PG_qingwen
+CCTV-8 电视剧,http://58.19.38.162:9901/tsfile/live/1007_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-8 电视剧,http://60.223.224.176:8888/newlive/live/hls/10/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-8 电视剧,http://58.19.38.162:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-8 电视剧,http://116.117.105.198:8096/tsfile/live/0008_1.m3u8$D老魔改_内置直播
 CCTV-8 电视剧,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226008/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-8 电视剧,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226008/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-9 纪录,http://120.76.248.139/live/bfgd/4200000128.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-9 纪录,http://117.27.190.42:9998/tsfile/live/23240_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-9 纪录,http://117.27.190.42:9998/tsfile/live/23240_1.m3u8?key=txiptv$PG_qingwen
-CCTV-9 纪录,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225734/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-9 纪录,http://58.19.38.162:9901/tsfile/live/1008_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-9 纪录,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225734/index.m3u8?$PG_qingwen
 CCTV-9 纪录,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225734/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-9 纪录,http://58.57.21.166:9901/tsfile/live/0009_1.m3u8$D老魔改_内置直播
+CCTV-9 纪录,http://58.19.38.162:9901/tsfile/live/1008_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-10 科教,http://120.76.248.139/live/bfgd/4200000129.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-10 科教,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226473/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-10 科教,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225730/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-10 科教,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225730/index.m3u8?$PG_qingwen
-CCTV-10 科教,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226473/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-10 科教,http://58.19.38.162:9901/tsfile/live/1009_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-10 科教,http://58.19.38.162:9901/tsfile/live/1009_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-10 科教,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225730/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-10 科教,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225730/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-10 科教,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226473/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-11 戏曲,http://120.76.248.139/live/bfgd/4200000130.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-11 戏曲,http://58.19.38.162:9901/tsfile/live/1010_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-11 戏曲,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226565/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-11 戏曲,http://117.27.190.42:9998/tsfile/live/23242_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
-CCTV-11 戏曲,http://117.27.190.42:9998/tsfile/live/23242_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-11 戏曲,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225597/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-11 戏曲,http://117.27.190.42:9998/tsfile/live/23242_1.m3u8?key=txiptv$PG_qingwen
-CCTV-11 戏曲,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226565/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-11 戏曲,http://58.19.38.162:9901/tsfile/live/1010_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-11 戏曲,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225597/index.m3u8$PG_qingwen
+CCTV-11 戏曲,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225597/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-11 戏曲,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226565/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-12 社会与法,http://120.76.248.139/live/bfgd/4200000131.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-12 社会与法,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225731/index.m3u8?$PG_qingwen
-CCTV-12 社会与法,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225731/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-12 社会与法,http://60.223.224.176:8888/newlive/live/hls/14/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-12 社会与法,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225731/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-12 社会与法,http://58.19.38.162:9901/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-12 社会与法,http://58.19.38.162:9901/tsfile/live/1011_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-12 社会与法,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225731/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-12 社会与法,http://58.57.21.166:9901/tsfile/live/0012_1.m3u8$D老魔改_内置直播
 CCTV-13 新闻,http://120.76.248.139/live/bfgd/4200000067.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-13 新闻,http://117.27.190.42:9998/tsfile/live/23244_1.m3u8?key=txiptv$PG_qingwen
-CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226011/index.m3u8$PG_qingwen
-CCTV-13 新闻,http://117.27.190.42:9998/tsfile/live/23244_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226537/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226571/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226537/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226571/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226011/index.m3u8?$PG_qingwen
+CCTV-13 新闻,http://58.19.38.162:9901/tsfile/live/1012_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226011/index.m3u8$PG_qingwen
+CCTV-13 新闻,http://58.19.38.162:9901/tsfile/live/1012_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226537/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-13 新闻,http://58.57.21.166:9901/tsfile/live/0013_1.m3u8$D老魔改_内置直播
+CCTV-13 新闻,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226011/index.m3u8?$PG_qingwen
 CCTV-14 少儿,http://120.76.248.139/live/bfgd/4200000132.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-14 少儿,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226591/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-14 少儿,http://58.19.38.162:9901/tsfile/live/1013_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-14 少儿,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225732/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-14 少儿,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225732/index.m3u8?$PG_qingwen
 CCTV-14 少儿,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225732/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-14 少儿,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226591/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-14 少儿,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225732/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-14 少儿,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226591/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-15 音乐,http://120.76.248.139/live/bfgd/4200000133.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-15 音乐,http://117.27.190.42:9998/tsfile/live/23246_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-15 音乐,http://117.27.190.42:9998/tsfile/live/23246_1.m3u8?key=txiptv$PG_qingwen
-CCTV-15 音乐,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225601/index.m3u8?$PG_qingwen
 CCTV-15 音乐,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225601/index.m3u8$PG_qingwen
-CCTV-16 奥林匹克,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226100/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-15 音乐,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225601/index.m3u8?$PG_qingwen
+CCTV-15 音乐,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226476/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-15 音乐,http://124.128.73.58:9901/tsfile/live/0015_1.m3u8?key=txiptv$PG_qingwen
 CCTV-16 奥林匹克,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226100/index.m3u8?$PG_qingwen
 CCTV-16 奥林匹克,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226100/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-17 农业农村,http://120.76.248.139/live/bfgd/4200000204.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-17 农业农村,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225708/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-17 农业农村,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225765/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-17 农业农村,http://117.27.190.42:9998/tsfile/live/23247_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-CCTV-17 农业农村,http://117.27.190.42:9998/tsfile/live/23247_1.m3u8?key=txiptv$PG_qingwen
-CCTV-17 农业农村,http://117.27.190.42:9998/tsfile/live/23247_1.m3u8?key=txiptv&playlive=1&authid=0$PG_qingwen
-CCTV-17 农业农村,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225765/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 CCTV-17 农业农村,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225765/index.m3u8?$PG_qingwen
+CCTV-17 农业农村,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225708/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-17 农业农村,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225765/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CCTV-17 农业农村,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225765/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+第一剧场,http://58.19.38.162:9901/tsfile/live/1035_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+风云足球,http://58.19.38.162:9901/tsfile/live/1034_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 
 卫视频道,#genre#
-北京卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226450/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-北京卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225728/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-北京卫视,http://117.27.190.42:9998/tsfile/live/23257_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-北京卫视,http://117.27.190.42:9998/tsfile/live/23257_1.m3u8?key=txiptv$PG_qingwen
-北京卫视,https://epg.pw/stream/980982be3e065112b06535546c9fc50b0202b5244ba24d3c9dae2c8013b33fc3.m3u8$王小二_综合1
+北京卫视,http://58.19.38.162:9901/tsfile/live/1017_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 北京卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226450/index.m3u8$PG_qingwen
-北京卫视,https://epg.pw/stream/ed16a4cd210c9f9d6204ddc6fb5def63a1c54b60114fb61679e61363edea068b.m3u8$王小二_综合1
-湖南卫视,http://1b6467f415.iok.la:9931/tsfile/live/1058_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-湖南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225610/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-湖南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226307/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+北京卫视,http://60.223.224.176:8888/newlive/live/hls/18/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+北京卫视,https://epg.pw/stream/81a83aae5e098095fc514c5ab802f00c5a651b3846694b4ad69e3fb649ed270a.m3u8$王小二_综合1
+北京卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225728/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+北京卫视,https://epg.pw/stream/70002946664ab0c6ebee948bc8515c8d2d224f2a4f98ee9af58ac20bf809ad58.m3u8$王小二_综合1
+北京卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225728/index.m3u8$PG_qingwen
+湖南卫视,http://58.19.38.162:9901/tsfile/live/1016_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 湖南卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225610/index.m3u8$PG_qingwen
-湖南卫视,http://59.173.243.210:9901/tsfile/live/1022_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 湖南卫视,http://58.57.21.166:9901/tsfile/live/0128_1.m3u8?key=txiptv&playlive=1&authid=0$D老魔改_内置直播
-湖南卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226307/index.m3u8$PG_qingwen
+东方卫视,http://220.164.192.48:50085/tsfile/live/0122_1.m3u8?key=txiptv&playlive=0&authid=0$PG_qingwen
+东方卫视,http://58.19.38.162:9901/tsfile/live/1018_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+东方卫视,https://epg.pw/stream/0d7e424973d9b480a4900c37d93c49f47f514ba52394992af17fc1d0360e5dc7.m3u8$王小二_综合1
+东方卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225735/index.m3u8$PG_qingwen
 东方卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226345/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 东方卫视,https://epg.pw/stream/fd455d33fc5b24a47728aa2b8642a545952050cdd29cae46f8453926fbbd61cf.m3u8$王小二_综合1
-东方卫视,https://epg.pw/stream/76215824a4436a4e08d74f3b842449a5e9d13759ccc84cca3b1ea8ba3c1f8c48.m3u8$王小二_综合1
-东方卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226345/index.m3u8$PG_qingwen
-东方卫视,http://59.173.243.210:9901/tsfile/live/1039_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播
-东方卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225735/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 四川卫视,http://219.147.200.9:18080/newlive/live/hls/48/live.m3u8$PG_qingwen
 四川卫视,http://220.164.192.48:50085/tsfile/live/0143_1.m3u8?key=txiptv&playlive=0&authid=0$PG_qingwen
-四川卫视,http://117.27.190.42:9998/tsfile/live/23260_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
-四川卫视,http://117.27.190.42:9998/tsfile/live/23260_1.m3u8?key=txiptv$PG_qingwen
-四川卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226338/index.m3u8$PG_qingwen
-四川卫视,http://117.27.190.42:9998/tsfile/live/23260_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-四川卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226338/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-四川卫视,http://59.173.243.210:9901/tsfile/live/1037_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-天津卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225740/index.m3u8$PG_qingwen
 天津卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226459/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-天津卫视,http://117.27.190.42:9998/tsfile/live/23259_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-天津卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226459/index.m3u8$PG_qingwen
+天津卫视,http://58.19.38.162:9901/tsfile/live/1024_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+天津卫视,http://58.57.21.166:9901/tsfile/live/0135_1.m3u8?key=txiptv$PG_qingwen
+天津卫视,http://58.57.21.166:9901/tsfile/live/0135_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播
 天津卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225740/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-天津卫视,http://117.27.190.42:9998/tsfile/live/23259_1.m3u8?key=txiptv$PG_qingwen
-天津卫视,https://epg.pw/stream/fe1b10e1535972bd2ff0d07893e0f093f21e9f115ae06d79e7d5d9632b534c01.m3u8$王小二_综合1
-安徽卫视,http://220.164.192.48:50085/tsfile/live/0126_1.m3u8?key=txiptv&playlive=0&authid=0$PG_qingwen
-安徽卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226391/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-安徽卫视,http://59.173.243.210:9901/tsfile/live/1025_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播
-安徽卫视,https://epg.pw/stream/74d0819199807044261e4b4f69c2383e5abd84d111ae8ff27aae1138c42ab40e.m3u8$王小二_综合1
-安徽卫视,http://117.27.190.42:9998/tsfile/live/23262_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
-安徽卫视,http://117.27.190.42:9998/tsfile/live/23262_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+天津卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226459/index.m3u8$PG_qingwen
+天津卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225740/index.m3u8$PG_qingwen
+天津卫视,https://epg.pw/stream/344ebea3be1190a8d1d792350cc6b3b9c136cee74ecc54b26751265784abc97f.m3u8$王小二_综合1
+安徽卫视,http://58.19.38.162:9901/tsfile/live/1021_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 安徽卫视,http://220.164.192.48:50085/tsfile/live/0126_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+山东卫视,http://58.19.38.162:9901/tsfile/live/1025_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+山东卫视,http://220.164.192.48:50085/tsfile/live/0121_1.m3u8?key=txiptv&playlive=0&authid=0$PG_qingwen
+山东卫视,http://58.57.21.166:9901/tsfile/live/0131_1.m3u8$D老魔改_内置直播
+山东卫视,http://220.164.192.48:50085/tsfile/live/0121_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 山东卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226456/index.m3u8$PG_qingwen
 山东卫视,http://59.173.243.210:9901/tsfile/live/1030_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
-山东卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226456/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 山东卫视,https://epg.pw/stream/4a343c7c4de4157d46c357cae28382364d74d1884942cf09bd212bfce4beeb7b.m3u8$王小二_综合1
 深圳卫视,https://epg.pw/stream/7d39b3e02dccfbd1ed32ec34964c9c335bfed429cb4f45800afa9f77414d01e3.ctv$王小二_综合1
-深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225739/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-深圳卫视,http://59.173.243.210:9901/tsfile/live/1027_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播
-深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226313/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+深圳卫视,http://58.19.38.162:9901/tsfile/live/1023_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+深圳卫视,https://epg.pw/stream/a4db962fa3a8c6fc162e00c7e3c223df0abc62955a760509ae37ff8a95876b4e.m3u8$王小二_综合1
 深圳卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226313/index.m3u8$PG_qingwen
-深圳卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225739/index.m3u8$PG_qingwen
-广东卫视,http://117.27.190.42:9998/tsfile/live/23270_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-广东卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226248/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-广东卫视,https://epg.pw/stream/d561fd3f552ba43e4c97c95b4fe965789e64a7ba920bb71faabc7079e1eff076.m3u8$王小二_综合1
-广东卫视,http://117.27.190.42:9998/tsfile/live/23270_1.m3u8?key=txiptv$PG_qingwen
-广西卫视,http://117.27.190.42:9998/tsfile/live/23269_1.m3u8?key=txiptv$PG_qingwen
+深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225739/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226313/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+广东卫视,http://58.19.38.162:9901/tsfile/live/1022_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+广东卫视,http://1b6467f415.iok.la:9931/tsfile/live/1010_1.m3u8$D老魔改_内置直播
+广东卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226248/index.m3u8$PG_qingwen
 广西卫视,http://220.164.192.48:50085/tsfile/live/0112_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-广西卫视,http://117.27.190.42:9998/tsfile/live/23269_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 江苏卫视,http://220.164.192.48:50085/tsfile/live/0128_1.m3u8?key=txiptv&playlive=0&authid=0$PG_qingwen
-江苏卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225613/index.m3u8$PG_qingwen
 江苏卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226310/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-江苏卫视,http://117.27.190.42:9998/tsfile/live/23264_1.m3u8?key=txiptv$PG_qingwen
+江苏卫视,http://58.19.38.162:9901/tsfile/live/1019_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 江苏卫视,http://220.164.192.48:50085/tsfile/live/0128_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+江苏卫视,http://60.223.224.176:8888/newlive/live/hls/21/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 江苏卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226310/index.m3u8$PG_qingwen
 江苏卫视,http://59.173.243.210:9901/tsfile/live/1023_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
-江苏卫视,https://epg.pw/stream/3c400e138a465843c4649277da9e6ae4b996405d5c3421d1009bed70012d3b24.m3u8$王小二_综合1
-江苏卫视,http://60.223.224.176:8888/newlive/live/hls/21/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 江苏卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225613/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-江苏卫视,http://117.27.190.42:9998/tsfile/live/23264_1.m3u8?key=txiptv&playlive=1&authid=0$PG_qingwen
-江西卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226344/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+江西卫视,http://58.19.38.162:9901/tsfile/live/1029_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 江西卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226344/index.m3u8$PG_qingwen
-河北卫视,http://117.27.190.42:9998/tsfile/live/23266_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-河北卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226406/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-河北卫视,http://117.27.190.42:9998/tsfile/live/23266_1.m3u8?key=txiptv$PG_qingwen
-河南卫视,http://117.27.190.42:9998/tsfile/live/23267_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+河北卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226406/index.m3u8$PG_qingwen
 河南卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226480/index.m3u8$PG_qingwen
-浙江卫视,http://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8$PG_qingwen
-浙江卫视,http://219.147.200.9:18080/newlive/live/hls/29/live.m3u8$PG_qingwen
-浙江卫视,https://epg.pw/stream/18109b1804a4d4c8acd2a83f3256b7495a047d7f5cf918ef92febd030933bfc2.m3u8$王小二_综合1
-浙江卫视,http://117.27.190.42:9998/tsfile/live/23271_1.m3u8?key=txiptv$PG_qingwen
+河南卫视,http://58.57.21.166:9901/tsfile/live/0139_1.m3u8?key=txiptv&playlive=1&authid=0$D老魔改_内置直播
+浙江卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226339/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+浙江卫视,http://58.19.38.162:9901/tsfile/live/1020_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 浙江卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225612/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-浙江卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226339/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 浙江卫视,http://59.173.243.210:9901/tsfile/live/1024_1.m3u8?key=txiptv&playlive=1&authid=0$摸鱼儿_SAO0
 浙江卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225612/index.m3u8$PG_qingwen
-浙江卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226339/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-浙江卫视,http://117.27.190.42:9998/tsfile/live/23271_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-海南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226465/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-海南卫视,http://117.27.190.42:9998/tsfile/live/23273_1.m3u8?key=txiptv&playlive=1&authid=0$晨瑞_公众号【晨瑞黑科】直播源
-海南卫视,http://117.27.190.42:9998/tsfile/live/23273_1.m3u8?key=txiptv$PG_qingwen
+海南卫视,http://58.19.38.162:9901/tsfile/live/1026_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 海南卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226465/index.m3u8$PG_qingwen
-湖北卫视,http://59.173.243.210:9901/tsfile/live/1018_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-湖北卫视,http://59.173.243.210:9901/tsfile/live/1018_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播
+海南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226465/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+湖北卫视,http://58.19.38.162:9901/tsfile/live/1015_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+湖北卫视,https://epg.pw/stream/a168d5ee9a5535ed5d363fe5b921fc96b8e59faeb98d0a1780505ad1384b0a00.m3u8$王小二_综合1
 湖北卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226477/index.m3u8$PG_qingwen
-湖北卫视,http://117.27.190.42:9998/tsfile/live/23275_1.m3u8?key=txiptv&playlive=1&authid=0$PG_qingwen
-湖北卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226477/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-湖北卫视,http://117.27.190.42:9998/tsfile/live/23275_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-湖北卫视,http://117.27.190.42:9998/tsfile/live/23275_1.m3u8?key=txiptv$PG_qingwen
 湖北卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225627/index.m3u8$PG_qingwen
 湖北卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225627/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+东南卫视,http://220.164.192.48:50085/tsfile/live/0120_1.m3u8?key=txiptv&playlive=0&authid=0$PG_qingwen
+东南卫视,http://58.19.38.162:9901/tsfile/live/1028_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 东南卫视,http://220.164.192.48:50085/tsfile/live/0120_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+东南卫视,http://58.57.21.166:9901/tsfile/live/0137_1.m3u8$D老魔改_内置直播
 东南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226341/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-东南卫视,http://117.27.190.42:9998/tsfile/live/23281_1.m3u8?key=txiptv$PG_qingwen
-东南卫视,http://117.27.190.42:9998/tsfile/live/23281_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 东南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225620/index.m3u8$PG_qingwen
-东南卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226341/index.m3u8$PG_qingwen
-贵州卫视,http://117.27.190.42:9998/tsfile/live/23252_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+贵州卫视,http://58.19.38.162:9901/tsfile/live/1030_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 贵州卫视,http://220.164.192.48:50085/tsfile/live/0125_1.m3u8?key=txiptv&playlive=0&authid=0$PG_qingwen
-贵州卫视,http://117.27.190.42:9998/tsfile/live/23252_1.m3u8?key=txiptv$PG_qingwen
+贵州卫视,http://220.164.192.48:50085/tsfile/live/0125_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 贵州卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226474/index.m3u8$PG_qingwen
-贵州卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226474/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-辽宁卫视,http://116.117.105.198:8096/tsfile/live/0121_1.m3u8$D老魔改_内置直播
-辽宁卫视,https://epg.pw/stream/bb2a5ce2a93b8b1eb36573d3b59ec54e83fd86b77c9bcd464e532665f5044b33.m3u8$王小二_综合1
-重庆卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226409/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+辽宁卫视,http://58.19.38.162:9901/tsfile/live/1027_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+辽宁卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226546/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+辽宁卫视,https://epg.pw/stream/c64410010e3b3bc92e8258f45615b779cc1932b641ce36e954ae6f74b5d47fab.m3u8$王小二_综合1
 重庆卫视,http://220.164.192.48:50085/tsfile/live/0131_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-重庆卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226409/index.m3u8$PG_qingwen
 重庆卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225618/index.m3u8$PG_qingwen
-黑龙江卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226327/index.m3u8$PG_qingwen
-黑龙江卫视,http://117.27.190.42:9998/tsfile/live/23256_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-黑龙江卫视,http://117.27.190.42:9998/tsfile/live/23256_1.m3u8?key=txiptv$PG_qingwen
-黑龙江卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226327/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+重庆卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226409/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 黑龙江卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226532/index.m3u8$PG_qingwen
+黑龙江卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226531/index.m3u8$PG_qingwen
 黑龙江卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226525/index.m3u8$PG_qingwen
-陕西卫视,http://110.53.52.63:8888/newlive/live/hls/40/live.m3u8$HG
+黑龙江卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226582/index.m3u8$PG_qingwen
+吉林卫视,http://220.164.192.48:50085/tsfile/live/0118_1.m3u8?key=txiptv&playlive=0&authid=0$摸鱼儿_SAO0
+吉林卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226397/index.m3u8$PG_qingwen
 吉林卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226397/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-吉林卫视,http://220.164.192.48:50085/tsfile/live/0118_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=f35a89681647856030$晨瑞_公众号【晨瑞黑科】直播源
 青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=58dbacb91718844831$PG_qingwen
-青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=14db4a3e1719897185$PG_qingwen
-青海卫视,http://117.27.190.42:9998/tsfile/live/23255_1.m3u8?key=txiptv$PG_qingwen
-青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=bb79a9b21719153336$俊佬线路_直播
-青海卫视,http://117.27.190.42:9998/tsfile/live/23255_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=0abcf5161719648656$PG_qingwen
-青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=a5a3a04e1720508811$PG_qingwen
-延边卫视,http://live.ybtvyun.com/video/s10006-90fe76c52091/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-延边卫视,http://live.ybtvyun.com/video/s10016-6f0dfd97912f/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-延边卫视,http://live.ybtvyun.com/video/s10006-44f040627ca1/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=9bc66dc81715026954$俊佬线路_直播
+青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=f35a89681647856030$晨瑞_公众号【晨瑞黑科】直播源
+青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=3793351f1719037354$PG_qingwen
+青海卫视,http://stream.qhbtv.com/qhws/sd/live.m3u8?_upt=8b2f07cc1707359845$晨瑞_公众号【晨瑞黑科】直播源
+西藏卫视,https://epg.pw/stream/3eaef55a49d4dc5a29746eab41bbbee88f297063b52e33b0e6a5732e673faf20.m3u8$王小二_综合1
 延边卫视,http://live.ybtvyun.com/video/s10006-44f040627ca1/index.m3u8?$晨瑞_公众号【晨瑞黑科】直播源
 延边卫视,http://live.ybtvyun.com/video/s10006-44f040627ca1/index.m3u8?zjild$PG_qingwen
+延边卫视,http://live.ybtvyun.com/video/s10016-6f0dfd97912f/index.m3u8?zjild$PG_qingwen
+延边卫视,http://live.ybtvyun.com/video/s10006-44f040627ca1/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+延边卫视,http://live.ybtvyun.com/video/s10016-6f0dfd97912f/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+延边卫视,http://live.ybtvyun.com/video/s10006-90fe76c52091/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 延边卫视,http://live.ybtvyun.com/video/s10006-28bc40431485/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 延边卫视,http://live.ybtvyun.com/video/s10016-7e5f23de35df/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-延边卫视,http://live.ybtvyun.com/video/s10016-6f0dfd97912f/index.m3u8?zjild$PG_qingwen
-安多卫视,http://stream.qhbtv.com/adws/sd/live.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+安多卫视,http://stream.qhbtv.com/adws/sd/live.m3u8 $王小二_综合3
+大湾区卫视,http://183.11.239.36:808/hls/132/index.m3u8$PG_mohua
 
 电影频道,#genre#
+CHC动作电影,http://58.19.38.162:9901/tsfile/live/1037_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+CHC动作电影,https://stream1.freetv.fun/ipv6-chcdong-zuo-dian-ying-24.m3u8$摸鱼儿_SAO0
 CHC家庭影院,https://stream1.freetv.fun/chcjia-ting-ying-yuan-4.m3u8$摸鱼儿_SAO0
-CHC家庭影院,http://110.53.52.63:8888/newlive/live/hls/51/live.m3u8$摸鱼儿_SAO0
+CHC家庭影院,http://58.19.38.162:9901/tsfile/live/1036_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 经典电影,http://cfss.cc/cdn/yy/1355142167.flv$晨瑞_公众号【晨瑞黑科】直播源
 经典电影,http://cfss.cc/cdn/yy/1382754187.flv$晨瑞_公众号【晨瑞黑科】直播源
-超级电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225717/index.m3u8 $PG_ganjue
 超级电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225717/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+超级电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225717/index.m3u8 $PG_ganjue
 
 体育频道,#genre#
 超级体育,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225715/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
@@ -274,44 +243,40 @@ CHC家庭影院,http://110.53.52.63:8888/newlive/live/hls/51/live.m3u8$摸鱼儿
 广东体育,https://stream1.freetv.fun/yan-dong-ti-yu-5.m3u8$摸鱼儿_SAO0
 
 数字频道,#genre#
-优漫卡通,https://stream1.freetv.fun/4f3e660db4b75f218546c35fbdf55813ca1cd497ebcaa5fa4d873cff81c402f5.m3u8$PG_qingwen
-黑莓动画,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225662/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+欢笑剧场,http://1b6467f415.iok.la:9931/tsfile/live/1106_1.m3u8$D老魔改_内置直播
 超级体育,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225715/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 超级体育,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225715/index.m3u8 $PG_ganjue
-超级电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225717/index.m3u8 $PG_ganjue
 超级电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225717/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-海外剧场,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225671/index.m3u8 $PG_ganjue
+超级电影,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225717/index.m3u8 $PG_ganjue
 海外剧场,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225671/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-军旅剧场,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225676/index.m3u8 $PG_ganjue
+海外剧场,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225671/index.m3u8 $PG_ganjue
 军旅剧场,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225676/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-欢乐剧场,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225742/index.m3u8 $PG_ganjue
+军旅剧场,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225676/index.m3u8 $PG_ganjue
 
 广东频道,#genre#
-广东卫视,http://117.27.190.42:9998/tsfile/live/23270_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-广东卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226248/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-广东卫视,https://epg.pw/stream/d561fd3f552ba43e4c97c95b4fe965789e64a7ba920bb71faabc7079e1eff076.m3u8$王小二_综合1
-广东卫视,http://117.27.190.42:9998/tsfile/live/23270_1.m3u8?key=txiptv$PG_qingwen
+广东卫视,http://58.19.38.162:9901/tsfile/live/1022_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+广东卫视,http://1b6467f415.iok.la:9931/tsfile/live/1010_1.m3u8$D老魔改_内置直播
+广东卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226248/index.m3u8$PG_qingwen
 深圳卫视,https://epg.pw/stream/7d39b3e02dccfbd1ed32ec34964c9c335bfed429cb4f45800afa9f77414d01e3.ctv$王小二_综合1
-深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225739/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-深圳卫视,http://59.173.243.210:9901/tsfile/live/1027_1.m3u8?key=txiptv&playlive=1&authid=0$俊佬线路_直播
-深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226313/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+深圳卫视,http://58.19.38.162:9901/tsfile/live/1023_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+深圳卫视,https://epg.pw/stream/a4db962fa3a8c6fc162e00c7e3c223df0abc62955a760509ae37ff8a95876b4e.m3u8$王小二_综合1
 深圳卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226313/index.m3u8$PG_qingwen
-深圳卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225739/index.m3u8$PG_qingwen
+深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225739/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+深圳卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226313/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 广东珠江,https://stream1.freetv.fun/ipv6-yan-dong-zhu-jiang-8.m3u8$摸鱼儿_SAO0
 广东体育,https://stream1.freetv.fun/yan-dong-ti-yu-10.m3u8$摸鱼儿_SAO0
 广东体育,https://stream1.freetv.fun/yan-dong-ti-yu-5.m3u8$摸鱼儿_SAO0
 广东新闻,https://stream1.freetv.fun/yan-dong-xin-wen-gao-qing-1.m3u8$摸鱼儿_SAO0
+广东新闻,http://1b6467f415.iok.la:9931/tsfile/live/1012_1.m3u8$D老魔改_内置直播
+大湾区卫视,http://183.11.239.36:808/hls/132/index.m3u8$PG_mohua
 
 湖南频道,#genre#
-湖南卫视,http://1b6467f415.iok.la:9931/tsfile/live/1058_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-湖南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221225610/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
-湖南卫视,http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226307/index.m3u8$晨瑞_公众号【晨瑞黑科】直播源
+湖南卫视,http://58.19.38.162:9901/tsfile/live/1016_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 湖南卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221225610/index.m3u8$PG_qingwen
-湖南卫视,http://59.173.243.210:9901/tsfile/live/1022_1.m3u8$晨瑞_公众号【晨瑞黑科】直播源
 湖南卫视,http://58.57.21.166:9901/tsfile/live/0128_1.m3u8?key=txiptv&playlive=1&authid=0$D老魔改_内置直播
-湖南卫视,http://ottrrs.hl.chinamobile.com/TVOD/88888888/224/3221226307/index.m3u8$PG_qingwen
 
 港澳频道,#genre#
-凤凰卫视,http://211.72.65.236:8577/.m3u8$摸鱼儿_SAO0
 凤凰卫视,http://211.72.65.236:8577/.m3u8 $晨瑞_公众号【晨瑞黑科】直播源
+凤凰卫视,http://211.72.65.236:8577/.m3u8$摸鱼儿_SAO0
+东森电影,http://1b6467f415.iok.la:9931/tsfile/live/1043_1.m3u8$D老魔改_内置直播
 
